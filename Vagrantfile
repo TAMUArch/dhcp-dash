@@ -17,5 +17,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "mongodb::10gen_repo"
     chef.add_recipe "mongodb"
+    chef.add_recipe "dhcp-dash"
   end
 end
