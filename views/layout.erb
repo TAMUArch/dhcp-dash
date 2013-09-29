@@ -29,9 +29,9 @@
                       <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                      <li><a href="/networks/sample">165.91.196.0/22</a></li>
-                      <li><a href="/networks/sample2">165.91.139.0/25</a></li>
-                      <li><a href="/networks/sample3">165.91.243.0/26</a></li>
+                    <% networks.each do |network| %>
+                      <li><a href="/networks/<%=network%>"><%=network%></a></li>
+                    <% end %>
                 </ul>
               </li>
             </ul>
