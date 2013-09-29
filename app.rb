@@ -1,6 +1,7 @@
 
 require 'rubygems'
 require 'sinatra'
+require 'json'
 
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
@@ -11,9 +12,21 @@ helpers do
   def username
     session[:identity] ? session[:identity] : 'Hello stranger'
   end
+
+  def networks
+    json_files = Dir.entries('/vagrant/networks').reject {|n| !n.match(/.json/)}
+    json_files.each do |file|
+      file.gsub!('.json', '')
+      file.gsub!('_', '.')
+    end
+  end
+
+  def network
+    ## TODO: return netwok in a hash
+  end
 end
 
-before '/secure/*' do
+before '/networks/*' do
   if !session[:identity] then
     session[:previous_url] = request.path
     @error = 'Sorry guacamole, you need to be logged in to visit ' + request.path
@@ -22,7 +35,7 @@ before '/secure/*' do
 end
 
 get '/' do
-  erb 'Can you handle a <a href="/secure/place">secret</a>?'
+  erb 'You must authenticate to use this application.'
 end
 
 get '/login/form' do 
@@ -41,6 +54,6 @@ get '/logout' do
 end
 
 
-get '/secure/place' do
+get "/networks/:id" do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
 end
