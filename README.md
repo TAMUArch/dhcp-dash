@@ -1,4 +1,4 @@
 DHCP Dashboard
 ====
 
-A dhcp dashboard to give our less technical users the ability to make use of our current dhcp/dns environment.
+A GUI to an isc-dhcp server uses Chef to populate the changes.
