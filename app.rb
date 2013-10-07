@@ -10,11 +10,11 @@ end
 
 helpers do
   def username
-    session[:identity] ? session[:identity] : 'Hello stranger'
+    session[:identity] ? session[:identity] : 'Login'
   end
 
   def networks
-    json_files = Dir.entries('/vagrant/networks').reject {|n| !n.match(/.json/)}
+    json_files = Dir.entries('./networks').reject {|n| !n.match(/.json/)}
     json_files.each do |file|
       file.gsub!('.json', '')
       file.gsub!('_', '.')
@@ -56,4 +56,8 @@ end
 
 get "/networks/:id" do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
+end
+
+get '/networks/form' do
+  erb :networks_form
 end
