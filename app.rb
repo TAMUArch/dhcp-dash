@@ -21,8 +21,8 @@ helpers do
     end
   end
 
-  def network
-    ## TODO: return netwok in a hash
+  def network(net="/Users/vblessing/dhcp-dash/networks/192_168_1_0.json")
+    JSON.parse(IO.read(net))
   end
 end
 
@@ -55,7 +55,7 @@ end
 
 
 get "/networks/:id" do
-  erb "This is a secret place that only <%=session[:identity]%> has access to!"
+  erb :network 
 end
 
 get '/networks/form' do

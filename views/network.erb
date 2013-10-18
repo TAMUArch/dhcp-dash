@@ -1,0 +1,34 @@
+<head>
+<style type="text/css">
+table { border-collapse: separate; border-spacing: 5px; } // cellspacing="7"
+table { border-collapse: collapse; border-spacing: 0; }   // cellspacing="0"
+tbody tr:nth-child(even) { color:#FF0000; }
+tbody tr:nth-child(odd) {color:#000000;}
+</style>
+</head>
+<h4>Network</h4>
+<div>
+<p><b>Domain:</b> <%=network['domain']%> <br>
+  <b>Network:</b> <%=network['network']%> <br>
+  <b>Netmask:</b> <%=network['netmask']%> <br>
+  <b>Gateway:</b> <%=network['gateway']%> <br>
+  <b> Nameservers:</b> <%=network['nameservers'].join(", ")%> <br>
+  </p>
+</div>
+<br>
+<div>
+  <table>
+    <tr>
+      <td><b>Hostname</b></td>
+      <td><b>Mac</b></td>
+      <td><b>IP</b></td>
+    </tr>
+   <% network['hosts'].each do |h,v| %>
+    <tr>
+      <td><%=h %></td>
+      <td><%=v['mac']%></td>
+      <td><%=v['ip']%></td>
+    </tr>
+   <% end %>
+  </table>
+</div>
