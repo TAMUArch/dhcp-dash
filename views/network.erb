@@ -1,23 +1,16 @@
-<head>
-<style type="text/css">
-table { border-collapse: separate; border-spacing: 5px; } // cellspacing="7"
-table { border-collapse: collapse; border-spacing: 0; }   // cellspacing="0"
-tbody tr:nth-child(even) { color:#FF0000; }
-tbody tr:nth-child(odd) {color:#000000;}
-</style>
-</head>
-<h4>Network</h4>
+<h4><%=network['network']%></h4>
+<br>
 <div>
-<p><b>Domain:</b> <%=network['domain']%> <br>
-  <b>Network:</b> <%=network['network']%> <br>
-  <b>Netmask:</b> <%=network['netmask']%> <br>
-  <b>Gateway:</b> <%=network['gateway']%> <br>
-  <b> Nameservers:</b> <%=network['nameservers'].join(", ")%> <br>
+  <p>
+  <b><font size="3">Domain:</font></b> &nbsp; <%=network['domain']%> <br>
+  <b><font size="3">Netmask:</font></b> &nbsp; <%=network['netmask']%> <br>
+  <b><font size="3">Gateway:</font></b> &nbsp; <%=network['gateway']%> <br>
+  <b><font size="3">Nameservers:</font></b> &nbsp; <%=network['nameservers'].join(", ")%> <br>
   </p>
 </div>
 <br>
 <div>
-  <table>
+  <table class="table table-striped">
     <tr>
       <td><b>Hostname</b></td>
       <td><b>Mac</b></td>
