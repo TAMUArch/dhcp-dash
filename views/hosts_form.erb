@@ -1,8 +1,21 @@
 <h3>Add new Host</h3>
 <form action='/networksmgr/hosts_form' method='post' class="form-inline well">
-   Hostname: <input type="text" name="hostname" <br>
-   IP: <input type="text" name="ip" <br>
-   MAC: <input type="text" name="mac" <br>
+   <b>Hostname:</b>&nbsp; <input type="text" name="hostname" <br>
    <br>
+   <br>
+   <b>IP:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="ip" <br>
+   <br>
+   <br>
+   <b>MAC:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="mac" <br>
+   <br>
+   <br>
+   <p><b>Network:</b> &nbsp; &nbsp;
+   <select>
+     <option value="FOC_NONE"></option>
+     <% networks.each do |network| %>
+     <option value=<%=network%>><%=network%></option>
+     <% end %>
+   </select>
+   </p>
    <br><input type="submit" value="Submit">
 </form>
