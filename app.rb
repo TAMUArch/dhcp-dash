@@ -34,6 +34,14 @@ before '/networks/*' do
   end
 end
 
+before '/networksmgr/*' do
+  if !session[:identity] then
+    session[:previous_url] = request.path
+    @error = 'Sorry quacamole, you need to be logged in to visit ' + request.path
+    halt erb(:login_form)
+  end
+end
+
 get '/' do
   erb 'You must authenticate to use this application.'
 end
@@ -58,6 +66,10 @@ get "/networks/:id" do
   erb :network 
 end
 
-get '/networks/form' do
+get '/networksmgr/networks_form' do
   erb :networks_form
+end
+
+get '/networksmgr/hosts_form' do
+  erb :hosts_form
 end
