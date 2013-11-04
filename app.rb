@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'sinatra/formkeeper'
 
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
@@ -61,7 +62,6 @@ get '/logout' do
   erb "<div class='alert alert-message'>Logged out</div>"
 end
 
-
 get "/networks/:id" do
   erb :network 
 end
@@ -72,4 +72,58 @@ end
 
 get '/networksmgr/hosts_form' do
   erb :hosts_form
+end
+
+post '/networksmgr/networks_form' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  form do
+    field :domain, :present => true
+    field :network, :present => true, :regexp => ip_regex
+    field :netmask, :present => true, :regexp => ip_regex
+    field :gateway, :present => true, :regexp => ip_regex
+    field :nameservers, :present => true
+  end
+
+  if form.failed?
+    output = erb :networks_form
+    fill_in_form(output)
+  else
+    puts params["domain"]
+    puts params["network"]
+    puts params["netmask"]
+    puts params["gateway"]
+    puts params["nameservers"]
+    id = params["network"].gsub('.', '_')
+    output = {
+      "id" => id,
+      "domain" => params["domain"],
+      "network" => params["network"],
+      "netmask" => params["netmask"],
+      "gateway" => params["gateway"],
+      "nameservers" => params["nameservers"].split(",")}
+    puts output
+    File.open("./networks/#{id}.json", "w") do |f|
+      f.puts(JSON.pretty_generate(output))
+    end
+     redirect '/'
+  end
+end
+
+post '/networksmgr/hosts_form' do
+  form do
+    field :hostname, :present => true
+    field :ip, :present => true, :regexp => %r{^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$}
+    field :mac, :present => true
+  end
+
+  if form.failed?
+    output = erb :hosts_form
+    fill_in_form(output)
+  else
+    puts params["hostname"]
+    puts params["ip"]
+    puts params["mac"]
+    puts params["net"]
+    redirect '/'
+  end
 end

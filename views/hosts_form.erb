@@ -1,4 +1,7 @@
 <h3>Add new Host</h3>
+<% if form.failed? %>
+<p><b><font color="red">&nbsp; Found invalid input, check your input and try again.</font></b></p>
+<% end %>
 <form action='/networksmgr/hosts_form' method='post' class="form-inline well">
    <b>Hostname:</b>&nbsp; <input type="text" name="hostname" <br>
    <br>
@@ -10,7 +13,7 @@
    <br>
    <br>
    <p><b>Network:</b> &nbsp; &nbsp;
-   <select>
+   <select name="net">
      <option value="FOC_NONE"></option>
      <% networks.each do |network| %>
      <option value=<%=network%>><%=network%></option>
