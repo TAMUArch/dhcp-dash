@@ -1,6 +1,8 @@
 <h3>Add new Host</h3>
 <% if form.failed? %>
-<p><b><font color="red">&nbsp; Found invalid input, check your input and try again.</font></b></p>
+  <b><font color="red">Found invalid input, check your input and try again.</font></b>
+  <br>
+  <br>
 <% end %>
 <form action='/networksmgr/hosts_form' method='post' class="form-inline well">
    <b>Hostname:</b>&nbsp; <input type="text" name="hostname" <br>

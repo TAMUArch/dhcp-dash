@@ -1,12 +1,14 @@
 <h3>Add new Network</h3>
 <% if form.failed? %>
-<p><b><font color="red">&nbsp; Found invalid input, check your input and try again.</font></b></p>
+<b><font color="red">Found invalid input, check your input and try again.</font></b>
+<br>
+<br>
 <% end %>
   <form action='/networksmgr/networks_form' method='post' class="well">
    <b>Domain:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="domain"><br>
    <br><b>Network:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="network"><br>
    <br><b>Netmask:</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="netmask"><br>
    <br><b>Gateway:</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="gateway"><br>
-   <br><b>Nameservers:</b> &nbsp;<input type="text" name="nameservers"><br>
+   <br><b>Nameservers:</b> &nbsp;<input type="text" name="nameservers">&nbsp;&nbsp;Must be comma delimited with no spaces<br>
    <br><input type="submit" value="Submit">
    </form>
