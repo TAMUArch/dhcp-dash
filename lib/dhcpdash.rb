@@ -1,40 +1,26 @@
+require_relative 'dhcpdash/network'
+
 module DHCPDash
-  def add_host(hostname, ip, mac, network)
-    net = return_network(network_id(network))
-    net['hosts'][hostname] = {
-      "ip" => ip,
-      "mac" => mac
-    }
-
-    save_network(network_id(network), net)
+  def network_exists?(id)
+    File.exists?("./networks/#{id}.json")
   end
 
-  def network_exists?(network)
-    File.exists?(network.gsub('.', '_') + ".json")
-  end
-
-  def add_network(domain, network, netmask, gateway, nameservers = [])
-    output = {
-      "id" => network_id(network),
-      "domain" => domain, 
-      "network" => network,
-      "netmask" => netmask,
-      "gateway" => gateway,
-      "nameservers" => nameservers.split(",")}
-    save_network(network_id(network), output) 
-  end
-
-  def network_id(network)
-    network.gsub('.', '_')
-  end
-
-  def save_network(id, network_hash)
-    File.open("./networks/#{id}.json", "w") do |f|
-      f.puts(JSON.pretty_generate(network_hash))
+  def save_network(network)
+    File.open("./networks/#{network.id}.json", "w") do |f|
+      f.puts(JSON.pretty_generate(network.to_hash))
     end
   end
 
-  def return_network(id)
-    JSON.parse(IO.read("./networks/#{id}.json"))
+  def return_network(network)
+    net = Network.new(network)
+    if network_exists?(net.id)
+      n = JSON.parse(IO.read("./networks/#{net.id}.json"))
+      net.domain = n['domain']
+      net.netmask = n['netmask']
+      net.gateway = n['gateway']
+      net.nameservers = n['nameservers']
+      net.hosts = n['hosts']
+    end
+    net
   end
 end

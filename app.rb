@@ -91,11 +91,15 @@ post '/networksmgr/networks_form' do
     output = erb :networks_form
     fill_in_form(output)
   else
-    add_network(params["domain"], 
-                params["network"], 
-                params["netmask"], 
-                params["gateway"], 
-                params["nameservers"])
+    net = return_network(params['network'])
+
+    net.domain = params["domain"]
+    net.netmask =  params["netmask"]
+    net.gateway = params["gateway"]
+    net.nameservers = params["nameservers"].split(",")
+
+    save_network(net)
+
     redirect '/'
   end
 end
@@ -111,10 +115,12 @@ post '/networksmgr/hosts_form' do
     output = erb :hosts_form
     fill_in_form(output)
   else
-    add_host(params["hostname"],
+    net = return_network(params["net"])
+    puts net.domain
+    net.add_host(params["hostname"],
              params["ip"],
-             params["mac"],
-             params["net"])
+             params["mac"])
+    save_network(net)
     redirect '/'
   end
 
