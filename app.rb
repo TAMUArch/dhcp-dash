@@ -1,9 +1,8 @@
-
-require 'rubygems'
 require 'sinatra'
 require 'json'
 require 'sinatra/formkeeper'
 require_relative 'lib/dhcpdash'
+
 include DHCPDash
 
 configure do
@@ -65,6 +64,7 @@ get '/logout' do
 end
 
 get "/networks/:id" do
+  @network = return_network(params["id"].gsub("_", "."))
   erb :network 
 end
 
@@ -78,7 +78,7 @@ end
 
 post '/networksmgr/networks_form' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-  nameserver_regex = %r{^\S*$\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
   form do
     field :domain, :present => true
     field :network, :present => true, :regexp => ip_regex
@@ -92,14 +92,11 @@ post '/networksmgr/networks_form' do
     fill_in_form(output)
   else
     net = return_network(params['network'])
-
-    net.domain = params["domain"]
-    net.netmask =  params["netmask"]
-    net.gateway = params["gateway"]
-    net.nameservers = params["nameservers"].split(",")
-
+    net.domain = params['domain']
+    net.netmask =  params['netmask']
+    net.gateway = params['gateway']
+    net.nameservers = params['nameservers'].split(",")
     save_network(net)
-
     redirect '/'
   end
 end
@@ -110,18 +107,30 @@ post '/networksmgr/hosts_form' do
     field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
     field :mac, :present => true
   end
+  net = return_network(params['net'])
+
+  puts params.inspect
+
+  exists_array = Array.new
+  exists_array = [net.hostname_exists?(params['hostname']),
+                  net.host_ip_exists?(params['ip']),
+                  net.host_mac_exists?(params['mac'])]
+
+  host_exists = exists_array.any?
 
   if form.failed?
     output = erb :hosts_form
     fill_in_form(output)
+
+  elsif host_exists
+    output = erb :host_exists
+    fill_in_form(output)
+
   else
-    net = return_network(params["net"])
-    puts net.domain
-    net.add_host(params["hostname"],
-             params["ip"],
-             params["mac"])
+    net.add_host(params['hostname'],
+             params['ip'],
+             params['mac'])
     save_network(net)
     redirect '/'
   end
-
 end

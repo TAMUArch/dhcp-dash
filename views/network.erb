@@ -1,11 +1,11 @@
-<h4><%=network['network']%></h4>
+<h4><%=@network.network %></h4>
 <br>
 <div>
   <p>
-  <b><font size="3">Domain:</font></b> &nbsp; <%=network['domain']%> <br>
-  <b><font size="3">Netmask:</font></b> &nbsp; <%=network['netmask']%> <br>
-  <b><font size="3">Gateway:</font></b> &nbsp; <%=network['gateway']%> <br>
-  <b><font size="3">Nameservers:</font></b> &nbsp; <%=network['nameservers'].join(", ")%> <br>
+  <b><font size="3">Domain:</font></b> &nbsp; <%=@network.domain %> <br>
+  <b><font size="3">Netmask:</font></b> &nbsp; <%=@network.netmask %> <br>
+  <b><font size="3">Gateway:</font></b> &nbsp; <%=@network.gateway %> <br>
+  <b><font size="3">Nameservers:</font></b> &nbsp; <%=@network.nameservers.join(",") %> <br>
   </p>
 </div>
 <br>
@@ -16,7 +16,7 @@
       <td><b>MAC</b></td>
       <td><b>IP</b></td>
     </tr>
-   <% network['hosts'].each do |h,v| %>
+   <% @network.hosts.each do |h,v| %>
     <tr>
       <td><%=h %></td>
       <td><%=v['mac']%></td>

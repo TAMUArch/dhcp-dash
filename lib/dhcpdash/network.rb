@@ -15,10 +15,12 @@ module DHCPDash
     end
 
     def add_host(hostname, ip, mac)
-      @hosts[hostname] = {
-        "ip" => ip,
-        "mac" => mac
-      }
+      unless hostname_exists?(hostname)
+        @hosts[hostname] = {
+          "ip" => ip,
+          "mac" => mac
+        }
+      end
     end
 
     def exists?
@@ -39,6 +41,28 @@ module DHCPDash
         "nameservers" => @nameservers,
         "hosts" => @hosts
       }
+    end
+
+    def hostname_exists?(hostname)
+      @hosts.has_key?(hostname)
+    end
+
+    def host_ip_exists?(ip)
+      @hosts.each_value do |vals|
+        if vals['ip'] == ip
+          return true
+        end
+      end
+      return false
+    end
+
+    def host_mac_exists?(mac)
+      @hosts.each_value do |vals|
+        if vals['mac'] == mac
+          return true
+        end
+      end
+      return false
     end
   end
 end
