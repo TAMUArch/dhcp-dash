@@ -1,5 +1,5 @@
 <h4><%=@network.network %></h4>
-<br>
+<a href="/network/<%=@network.network %>/edit" style="float: right;">Edit Network</a>
 <div>
   <p>
   <b><font size="3">Domain:</font></b> &nbsp; <%=@network.domain %> <br>
@@ -15,12 +15,16 @@
       <td><b>Hostname</b></td>
       <td><b>MAC</b></td>
       <td><b>IP</b></td>
+      <td></td>
+      <td></td>
     </tr>
    <% @network.hosts.each do |h,v| %>
     <tr>
       <td><%=h %></td>
       <td><%=v['mac']%></td>
       <td><%=v['ip']%></td>
+      <td><a href="/network/:id/hosts/:host_id/edit">Edit</a></td>
+      <td><a href="/network/:id/hosts/:host_id/delete">Delete</a>
     </tr>
    <% end %>
   </table>

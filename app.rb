@@ -22,24 +22,12 @@ helpers do
       file.gsub!('_', '.')
     end
   end
-
-  def network(net="/Users/vblessing/dhcp-dash/networks/192_168_1_0.json")
-    JSON.parse(IO.read(net))
-  end
 end
 
-before '/networks/*' do
+before '/network/*' do
   if !session[:identity] then
     session[:previous_url] = request.path
     @error = 'Sorry guacamole, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
-  end
-end
-
-before '/networksmgr/*' do
-  if !session[:identity] then
-    session[:previous_url] = request.path
-    @error = 'Sorry quacamole, you need to be logged in to visit ' + request.path
     halt erb(:login_form)
   end
 end
@@ -63,24 +51,25 @@ get '/logout' do
   erb "<div class='alert alert-message'>Logged out</div>"
 end
 
-get "/networks/:id" do
+get "/network/:id" do
   @network = return_network(params["id"].gsub("_", "."))
   erb :network 
 end
 
-get '/networksmgr/networks_form' do
+get '/networks/new' do
   erb :networks_form
 end
 
-get '/networksmgr/hosts_form' do
+get '/hosts/new' do
   erb :hosts_form
 end
 
-post '/networksmgr/networks_form' do
+post '/networks/new' do
+  domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
   form do
-    field :domain, :present => true
+    field :domain, :present => true, :regexp => domain_regex
     field :network, :present => true, :regexp => ip_regex
     field :netmask, :present => true, :regexp => ip_regex
     field :gateway, :present => true, :regexp => ip_regex
@@ -101,7 +90,7 @@ post '/networksmgr/networks_form' do
   end
 end
 
-post '/networksmgr/hosts_form' do
+post '/hosts/new' do
   form do
     field :hostname, :present => true
     field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
@@ -130,6 +119,44 @@ post '/networksmgr/hosts_form' do
     net.add_host(params['hostname'],
              params['ip'],
              params['mac'])
+    save_network(net)
+    redirect '/'
+  end
+end
+
+get '/network/:id/edit' do
+  @network = return_network(params["id"].gsub("_", "."))
+  erb :edit_network
+end
+
+get '/network/:id/hosts/:hostname/edit' do
+  erb :edit_host
+end
+
+get '/network/:id/hosts/:hostname/delete' do
+
+end
+
+post '/network/:id/edit' do
+  domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
+  form do
+    field :domain, :present => true, :regexp => domain_regex
+    field :network, :present => true, :regexp => ip_regex
+    field :gateway, :present => true, :regexp => ip_regex
+    field :nameservers, :present => true, :regexp => nameserver_regex
+  end
+
+  if form.failed?
+    output = erb :edit_network
+    fill_in_form(output)
+  else
+    net = return_network(params['network'])
+    net.domain = params['domain']
+    net.netmask =  params['netmask']
+    net.gateway = params['gateway']
+    net.nameservers = params['nameservers'].split(",")
     save_network(net)
     redirect '/'
   end

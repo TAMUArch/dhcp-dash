@@ -4,17 +4,32 @@
   <br>
   <br>
 <% end %>
-<form action='/networksmgr/hosts_form' method='post' class="well">
-  <b>Hostname:</b>&nbsp; <input type="text" name="hostname"><br>
-   <b>IP:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="ip"><br>
-   <b>MAC:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="mac"><br>
-   <p><b>Network:</b> &nbsp; &nbsp;
-   <select name="net">
-     <option value="FOC_NONE"></option>
-     <% networks.each do |network| %>
-     <option value=<%=network%>><%=network%></option>
-     <% end %>
-   </select>
-   </p>
-   <br><input type="submit" value="Submit">
+<form action="/networksmgr/hosts_form" method="post" class="well">
+  <table>
+    <tr>
+      <td align="left"><b>Hostname: &nbsp;</b></td>
+      <td align="left"><input type="text" name="hostname"><br></td>
+    </tr>
+    <tr>
+      <td align="left"><b>IP: &nbsp;</b></td>
+      <td align="left"><input type="text" name="ip"><br></td>
+    </tr>
+    <tr>
+      <td align="left"><b>MAC: &nbsp;</b></td>
+      <td align="left"><input type="text" name="mac"><br></td>
+    </tr>
+    <tr>
+      <td align="left"><b>Network: &nbsp;</b>
+      <td align="left">
+          <select name="net">
+            <option value="FOC_NONE"></option>
+            <% networks.each do |network| %>
+            <option value=<%=network%>><%=network%></option>
+            <% end %>
+          </select></td>
+    </tr>
+    <tr>
+      <td align="left"><br><input type="submit" value="Submit"></td>
+    </tr>
+  </table>
 </form>

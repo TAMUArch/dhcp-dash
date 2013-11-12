@@ -4,11 +4,30 @@
 <br>
 <br>
 <% end %>
-  <form action='/networksmgr/networks_form' method='post' class="well">
-   <b>Domain:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="domain"><br>
-   <b>Network:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="network"><br>
-   <b>Netmask:</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="netmask"><br>
-   <b>Gateway:</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="gateway"><br>
-   <b>Nameservers:</b> &nbsp;<input type="text" name="nameservers">&nbsp;&nbsp;Must be comma delimited with no spaces<br>
-   <br><input type="submit" value="Submit">
+  <form action="/networksmgr/networks_form" method="post" class="well">
+    <table>
+      <tr>
+        <td align="left"><b>Domain: &nbsp;</b></td>
+        <td align="left"><input type="text" name="domain"><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b>Network: &nbsp;</b></td>
+        <td align="left"><input type="text" name="network"><br></td>
+      </tr>
+        <td align="left"><b>Netmask: &nbsp;</b></td>
+        <td align="left"><input type="text" name="netmask"><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b>Gateway: &nbsp;</b></td>
+        <td align="left"><input type="text" name="gateway"><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b>Nameservers: &nbsp;</b></td>
+        <td align="left"><abbr title="Must be comma delimited with no spaces.">
+            <input type="text" name="nameservers"></abbr><br></td>
+      </tr>
+      <tr>
+        <td align="left"><br><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
    </form>

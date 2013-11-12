@@ -1,0 +1,46 @@
+<h4><%=@network.network %></h4>
+<br>
+<div>
+  <form action="/network/<%=@network.network %>/edit" method=="post" class="well">
+    <table>
+      <tr>
+        <td align="left"><b><font size="3">Domain: &nbsp;</font></b></td>
+        <td align="left"><input type="text" name="domain" value=<%=@network.domain %>><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b><font size="3">Netmask: &nbsp;</font></b></td>
+        <td align="left"><input type="text" name="netmask" value=<%=@network.netmask %> readonly><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b><font size="3">Gateway: &nbsp;</font></b></td>
+        <td align="left"><input type="text" name="gateway" value=<%=@network.gateway %>><br></td>
+      </tr>
+      <tr>
+        <td align="left"><b><font size="3">Nameservers: &nbsp;</font></b></td>
+        <td align="left"><abbr title="Must be comma delimited with no spaces.">
+            <input type="text"name="nameservers" value=<%=@network.nameservers.join(",") %>></abbr><br></td>
+      </tr>
+      <tr>
+        <td align="left"><br><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<br>
+<div>
+  <table class="table table-striped">
+    <tr>
+      <td><b>Hostname</b></td>
+      <td><b>MAC</b></td>
+      <td><b>IP</b></td>
+    </tr>
+  <% @network.hosts.each do |h,v| %>
+    <tr>
+      <td><%=h %></td>
+      <td><%=v['mac']%></td>
+      <td><%=v['ip']%></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+</body>
