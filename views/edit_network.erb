@@ -1,8 +1,18 @@
 <h4><%=@network.network %></h4>
+
+<% if form.failed? %>
+<b><font color="red">Found invalid input, check your input and try again.</font></b>
 <br>
+<br>
+<% end %>
+
 <div>
-  <form action="/network/<%=@network.network %>/edit" method=="post" class="well">
+  <form action="/network/<%=@network.network %>/edit" method="post" class="well">
     <table>
+      <tr>
+        <td></td>
+        <td><input type="hidden" name ="network" value="<%=@network.network %>"</td>
+      </tr>
       <tr>
         <td align="left"><b><font size="3">Domain: &nbsp;</font></b></td>
         <td align="left"><input type="text" name="domain" value=<%=@network.domain %>><br></td>
@@ -21,12 +31,13 @@
             <input type="text"name="nameservers" value=<%=@network.nameservers.join(",") %>></abbr><br></td>
       </tr>
       <tr>
-        <td align="left"><br><input type="submit" value="Submit"></td>
+        <td align="left"><br><input type="submit" value="Save"></td>
       </tr>
     </table>
   </form>
 </div>
 <br>
+
 <div>
   <table class="table table-striped">
     <tr>

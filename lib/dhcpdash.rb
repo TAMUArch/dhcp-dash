@@ -1,4 +1,5 @@
 require_relative 'dhcpdash/network'
+require_relative 'dhcpdash/host'
 
 module DHCPDash
   def network_exists?(id)
@@ -22,5 +23,13 @@ module DHCPDash
       net.hosts = n['hosts']
     end
     net
+  end
+
+  def return_host(network, hostname)
+    @net
+    if 
+
+    end
+    host
   end
 end

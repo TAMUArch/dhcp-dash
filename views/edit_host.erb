@@ -1,0 +1,24 @@
+<h3>Edit Host</h3>
+<form action="/network/<%=@network%>/hosts/<%=@hostname%>/" method="post" class="well">
+ <table>
+   <tr>
+    <td align="left"><b>Hostname: &nbsp;</b></td>
+    <td align="left"><input type="text" name="hostname" value="<%=@hostname%>" readonly><br></td>
+   </tr>
+   <tr>
+    <td align="left"><b>IP: &nbsp;</b></td>
+    <td align="left"><input type="text" name="ip" value="<%=@host['ip']%>"><br></td>
+   </tr>
+   <tr>
+    <td align="left"><b>MAC: &nbsp;</b></td>
+    <td align="left"><input type="text" name="mac" value="<%=@host['mac']%>"><br></td>
+   </tr>
+   <tr>
+    <td align="left"><br><input type="submit" value="Save"></td>
+   </tr>
+   <tr>
+     <td></td>
+     <td><input type="hidden" name="network" value="<%=@network%>"</td>
+ </table>
+</form>
+

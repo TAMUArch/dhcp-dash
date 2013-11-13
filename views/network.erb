@@ -20,11 +20,11 @@
     </tr>
    <% @network.hosts.each do |h,v| %>
     <tr>
-      <td><%=h %></td>
+      <td><%=h%></td>
       <td><%=v['mac']%></td>
       <td><%=v['ip']%></td>
-      <td><a href="/network/:id/hosts/:host_id/edit">Edit</a></td>
-      <td><a href="/network/:id/hosts/:host_id/delete">Delete</a>
+      <td><a href="/network/<%=@network.network%>/hosts/<%=h%>/edit">Edit</a></td>
+      <td><a href="/network/<%=@network.network%>/hosts/<%=h%>/delete">Delete</a>
     </tr>
    <% end %>
   </table>

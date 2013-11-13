@@ -96,9 +96,7 @@ post '/hosts/new' do
     field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
     field :mac, :present => true
   end
-  net = return_network(params['net'])
-
-  puts params.inspect
+  net = return_network(params['network'])
 
   exists_array = Array.new
   exists_array = [net.hostname_exists?(params['hostname']),
@@ -120,16 +118,20 @@ post '/hosts/new' do
              params['ip'],
              params['mac'])
     save_network(net)
-    redirect '/'
+    redirect "/network/#{params['network']}"
   end
 end
 
 get '/network/:id/edit' do
-  @network = return_network(params["id"].gsub("_", "."))
+  @network = return_network(params['id'])
   erb :edit_network
 end
 
 get '/network/:id/hosts/:hostname/edit' do
+  net = return_network(params['id'])
+  @network = net.network
+  @host = net.hosts[params['hostname']]
+  @hostname = params['hostname']
   erb :edit_host
 end
 
@@ -143,10 +145,11 @@ post '/network/:id/edit' do
   nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
   form do
     field :domain, :present => true, :regexp => domain_regex
-    field :network, :present => true, :regexp => ip_regex
     field :gateway, :present => true, :regexp => ip_regex
     field :nameservers, :present => true, :regexp => nameserver_regex
   end
+
+  puts params['network']
 
   if form.failed?
     output = erb :edit_network
@@ -158,6 +161,41 @@ post '/network/:id/edit' do
     net.gateway = params['gateway']
     net.nameservers = params['nameservers'].split(",")
     save_network(net)
-    redirect '/'
+    redirect "/network/#{params['network']}"
   end
 end
+
+post '/network/:id/hosts/:hostname/edit' do
+  form do
+    field :hostname, :present => true
+    field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+    field :mac, :present => true
+  end
+  net = return_network(params['network'])
+
+  exists_array = Array.new
+  exists_array = [net.hostname_exists?(params['hostname']),
+                  net.host_ip_exists?(params['ip']),
+                  net.host_mac_exists?(params['mac'])]
+
+  host_exists = exists_array.any?
+
+  if form.failed?
+    output = erb :hosts_form
+    fill_in_form(output)
+
+  elsif host_exists
+    output = erb :host_exists
+    fill_in_form(output)
+
+  else
+    net.delete_host(params['hostname'])
+    net.add_host(params['hostname'],
+             params['ip'],
+             params['mac'])
+    save_network(net)
+    redirect "/network/#{params['network']}"
+  end
+end
+
+post '/network/

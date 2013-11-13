@@ -4,7 +4,7 @@
   <br>
   <br>
 <% end %>
-<form action="/networksmgr/hosts_form" method="post" class="well">
+<form action="/hosts/new" method="post" class="well">
   <table>
     <tr>
       <td align="left"><b>Hostname: &nbsp;</b></td>
@@ -21,7 +21,7 @@
     <tr>
       <td align="left"><b>Network: &nbsp;</b>
       <td align="left">
-          <select name="net">
+          <select name="network">
             <option value="FOC_NONE"></option>
             <% networks.each do |network| %>
             <option value=<%=network%>><%=network%></option>
@@ -29,7 +29,7 @@
           </select></td>
     </tr>
     <tr>
-      <td align="left"><br><input type="submit" value="Submit"></td>
+      <td align="left"><br><input type="submit" value="Save"></td>
     </tr>
   </table>
 </form>

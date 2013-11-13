@@ -23,6 +23,10 @@ module DHCPDash
       end
     end
 
+    def delete_host(hostname)
+      @hosts.delete(hostname)
+    end
+
     def exists?
       File.exists?(@network.gsub('.', '_') + ".json")
     end
