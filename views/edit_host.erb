@@ -1,5 +1,5 @@
 <h3>Edit Host</h3>
-<form action="/network/<%=@network%>/hosts/<%=@hostname%>/" method="post" class="well">
+<form action="/network/<%=@network%>/hosts/<%=@hostname%>/edit" method="post" class="well">
  <table>
    <tr>
     <td align="left"><b>Hostname: &nbsp;</b></td>
@@ -16,9 +16,9 @@
    <tr>
     <td align="left"><br><input type="submit" value="Save"></td>
    </tr>
-   <tr>
-     <td></td>
-     <td><input type="hidden" name="network" value="<%=@network%>"</td>
- </table>
+  </table>
+  <input type="hidden" name="network" value="<%=@network%>">
+  <input type="hidden" name="current_ip" value="<%=@host['ip']%>">
+  <input type="hidden" name="current_mac" value="<%=@host['mac']%>">
 </form>
 

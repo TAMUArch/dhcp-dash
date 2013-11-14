@@ -136,7 +136,11 @@ get '/network/:id/hosts/:hostname/edit' do
 end
 
 get '/network/:id/hosts/:hostname/delete' do
-
+  net = return_network(params['id'])
+  @network = net.network
+  @host = net.hosts
+  @hostname = params['hostname']
+  erb :delete_host
 end
 
 post '/network/:id/edit' do
@@ -173,10 +177,16 @@ post '/network/:id/hosts/:hostname/edit' do
   end
   net = return_network(params['network'])
 
-  exists_array = Array.new
-  exists_array = [net.hostname_exists?(params['hostname']),
-                  net.host_ip_exists?(params['ip']),
-                  net.host_mac_exists?(params['mac'])]
+  unless params['ip'] == params['current_ip']
+    ip_exists = net.host_ip_exists?(params['ip'])
+  end
+
+  unless params['mac'] == params['current_mac']
+    mac_exists = net.host_mac_exists?(params['mac'])
+  end
+
+  exists_array =  [ip_exists,
+                  mac_exists]
 
   host_exists = exists_array.any?
 
@@ -189,8 +199,7 @@ post '/network/:id/hosts/:hostname/edit' do
     fill_in_form(output)
 
   else
-    net.delete_host(params['hostname'])
-    net.add_host(params['hostname'],
+    net.edit_host(params['hostname'],
              params['ip'],
              params['mac'])
     save_network(net)
@@ -198,4 +207,10 @@ post '/network/:id/hosts/:hostname/edit' do
   end
 end
 
-post '/network/
+post '/network/:id/hosts/:hostname/delete' do
+  net = return_network(params['id'])
+  net.delete_host(params['hostname'])
+  save_network(net)
+  redirect "/network/#{params['network']}"
+end
+

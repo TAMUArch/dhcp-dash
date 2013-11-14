@@ -27,6 +27,13 @@ module DHCPDash
       @hosts.delete(hostname)
     end
 
+    def edit_host(hostname, ip, mac)
+      @hosts[hostname] = {
+        "ip" => ip,
+        "mac" => mac
+      }
+    end
+
     def exists?
       File.exists?(@network.gsub('.', '_') + ".json")
     end

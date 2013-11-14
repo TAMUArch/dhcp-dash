@@ -26,10 +26,6 @@ module DHCPDash
   end
 
   def return_host(network, hostname)
-    @net
-    if 
-
-    end
     host
   end
 end
