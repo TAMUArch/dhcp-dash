@@ -2,6 +2,8 @@ require 'sinatra'
 require 'json'
 require 'sinatra/formkeeper'
 require_relative 'lib/dhcpdash'
+require 'omniauth'
+require 'omniauth-ldap'
 
 include DHCPDash
 

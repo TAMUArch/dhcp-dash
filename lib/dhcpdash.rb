@@ -24,8 +24,4 @@ module DHCPDash
     end
     net
   end
-
-  def return_host(network, hostname)
-    host
-  end
 end

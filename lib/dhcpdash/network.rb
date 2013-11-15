@@ -34,10 +34,6 @@ module DHCPDash
       }
     end
 
-    def exists?
-      File.exists?(@network.gsub('.', '_') + ".json")
-    end
-
     def id
       @network.gsub('.', '_')
     end
