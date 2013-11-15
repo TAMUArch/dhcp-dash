@@ -20,16 +20,10 @@
     </tr>
     <tr>
       <td align="left"><b>Network: &nbsp;</b></td>
-      <td align="left">
-        <select name="network">
-          <option value="FOC_NONE"></option>
-          <% networks.each do |network| %>
-          <option value=<%=network%>><%=network%></option>
-          <% end %>
-        </select></td>
+      <td align="left"><input type="text" name="network" value="<%=@network%>" readonly><br></td>
     </tr>
     <tr>
-      <td align="left"><br><input type="submit" value="Save"></td>
+       <td align="left"><br><input type="submit" value="Save"></td>
     </tr>
   </table>
 </form>

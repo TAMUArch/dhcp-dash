@@ -138,7 +138,7 @@ end
 get '/network/:id/hosts/:hostname/delete' do
   net = return_network(params['id'])
   @network = net.network
-  @host = net.hosts
+  @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
   erb :delete_host
 end
@@ -152,8 +152,6 @@ post '/network/:id/edit' do
     field :gateway, :present => true, :regexp => ip_regex
     field :nameservers, :present => true, :regexp => nameserver_regex
   end
-
-  puts params['network']
 
   if form.failed?
     output = erb :edit_network
@@ -212,5 +210,42 @@ post '/network/:id/hosts/:hostname/delete' do
   net.delete_host(params['hostname'])
   save_network(net)
   redirect "/network/#{params['network']}"
+end
+
+get '/network/:id/hosts/new' do
+  @network = params['id']
+  erb :hosts_form_direct
+end
+
+post '/network/:id/hosts/new' do
+  form do
+    field :hostname, :present => true
+    field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+    field :mac, :present => true
+  end
+  net = return_network(params['network'])
+
+  exists_array = Array.new
+  exists_array = [net.hostname_exists?(params['hostname']),
+                  net.host_ip_exists?(params['ip']),
+                  net.host_mac_exists?(params['mac'])]
+
+  host_exists = exists_array.any?
+
+  if form.failed?
+    output = erb :hosts_form_direct
+    fill_in_form(output)
+
+  elsif host_exists
+    output = erb :host_exists
+    fill_in_form(output)
+
+  else
+    net.add_host(params['hostname'],
+             params['ip'],
+             params['mac'])
+    save_network(net)
+    redirect "/network/#{params['network']}"
+  end
 end
 

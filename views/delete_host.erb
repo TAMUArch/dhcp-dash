@@ -8,15 +8,15 @@
       </tr>
       <tr>
         <td align="left"><b>IP: &nbsp;</b></td>
-        <td align="left"><input type="text" name="ip" value="<%=@host['ip']%>"><br></td>
+        <td align="left"><input type="text" name="ip" value="<%=@host['ip']%>" readonly><br></td>
       </tr>
       <tr>
         <td align="left"><b>MAC: &nbsp;</b></td>
-        <td align="left"><input type="text" name="mac" value="<%=@host['mac']%>"><br></td>
+        <td align="left"><input type="text" name="mac" value="<%=@host['mac']%>" readonly><br></td>
       </tr>
       <tr>
         <td align="left"><br><input type="submit" value="Delete"></td>
-        <td align="left"><br><input class="button" type="button" onclick="window.location.replace('/network/<%=@network%>')"></td>
+        <td align="left"><br><input class="button" type="button" onclick="window.location.replace('/network/<%=@network%>')" value="Cancel" /></td>
       </tr>
     </table>
     <td><input type="hidden" name="network" value="<%=@network%>"</td>
