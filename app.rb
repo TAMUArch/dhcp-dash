@@ -1,9 +1,9 @@
 require 'sinatra'
 require 'json'
 require 'sinatra/formkeeper'
-require_relative 'lib/dhcpdash'
 require 'omniauth'
 require 'omniauth-ldap'
+require_relative 'lib/dhcpdash'
 
 include DHCPDash
 
@@ -26,26 +26,32 @@ helpers do
   end
 end
 
-before '/network/*' do
-  if !session[:identity] then
-    session[:previous_url] = request.path
-    @error = 'Sorry guacamole, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
+%w{network networks hosts}.each do |path|
+  before "/#{path}/*" do
+    if !session[:identity] then
+      session[:previous_url] = request.path
+      redirect '/auth/ldap'
+    end
   end
 end
 
 get '/' do
-  erb 'You must authenticate to use this application.'
+  if session[:identity].nil?
+    erb 'You must authenticate to use this application.'
+  else
+    erb 'Welcome'
+  end
+end
+
+post '/auth/:provider/callback' do
+  session[:identity] = env['omniauth.auth'].info.name
+  puts env['omniauth.auth'].info.name
+  puts session[:identity]
+  redirect '/'
 end
 
 get '/login/form' do 
-  erb :login_form
-end
-
-post '/login/attempt' do
-  session[:identity] = params['username']
-  where_user_came_from = session[:previous_url] || '/'
-  redirect to where_user_came_from 
+  redirect "/auth/ldap"
 end
 
 get '/logout' do

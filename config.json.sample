@@ -1,0 +1,14 @@
+{
+  "network_files": "./networks",
+  "auth": {
+    "ldap": {
+      "host": "123.0.0.1",
+      "port": "389",
+      "method": "plain",
+      "base": "dc=tamu, dc=edu",
+      "uid": "sAMAcountName",
+      "bind_dn": "cn=user, dc=tamu, dc=edu",
+      "password": "1234"
+    }
+  }
+}
