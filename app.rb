@@ -4,7 +4,7 @@ require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
 require_relative 'lib/dhcpdash'
-require_relative 'auth_middleware'
+require_relative 'dash_config'
 
 include DHCPDash
 
