@@ -4,6 +4,7 @@ require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
 require_relative 'lib/dhcpdash'
+require_relative 'auth_middleware'
 
 include DHCPDash
 
@@ -94,7 +95,7 @@ post '/networks/new' do
     net.gateway = params['gateway']
     net.nameservers = params['nameservers'].split(",")
     save_network(net)
-    redirect '/'
+    redirect "/network/#{params['network']}"
   end
 end
 
