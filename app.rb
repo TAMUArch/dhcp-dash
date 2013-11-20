@@ -76,7 +76,7 @@ end
 post '/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-  nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
+  nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
   form do
     field :domain, :present => true, :regexp => domain_regex
     field :network, :present => true, :regexp => ip_regex
@@ -100,10 +100,12 @@ post '/networks/new' do
 end
 
 post '/hosts/new' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
     field :hostname, :present => true
-    field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-    field :mac, :present => true
+    field :ip, :present => true, :regexp => ip_regex
+    field :mac, :present => true, :regexp => mac_regex
   end
   net = return_network(params['network'])
 
@@ -155,7 +157,7 @@ end
 post '/network/:id/edit' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-  nameserver_regex = %r{^\S*\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b|\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b[,]\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
+  nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
   form do
     field :domain, :present => true, :regexp => domain_regex
     field :gateway, :present => true, :regexp => ip_regex
@@ -163,6 +165,7 @@ post '/network/:id/edit' do
   end
 
   if form.failed?
+    @network = return_network(params['network'])
     output = erb :edit_network
     fill_in_form(output)
   else
@@ -177,10 +180,12 @@ post '/network/:id/edit' do
 end
 
 post '/network/:id/hosts/:hostname/edit' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
     field :hostname, :present => true
-    field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-    field :mac, :present => true
+    field :ip, :present => true, :regexp => ip_regex
+    field :mac, :present => true, :regexp => mac_regex
   end
   net = return_network(params['network'])
 
@@ -198,7 +203,11 @@ post '/network/:id/hosts/:hostname/edit' do
   host_exists = exists_array.any?
 
   if form.failed?
-    output = erb :hosts_form
+    net = return_network(params['network'])
+    @network = net.network
+    @host = net.hosts[params['hostname']]
+    @hostname = params['hostname']
+    output = erb :edit_host
     fill_in_form(output)
 
   elsif host_exists
@@ -227,10 +236,12 @@ get '/network/:id/hosts/new' do
 end
 
 post '/network/:id/hosts/new' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
     field :hostname, :present => true
-    field :ip, :present => true, :regexp => %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-    field :mac, :present => true
+    field :ip, :present => true, :regexp => ip_regex
+    field :mac, :present => true, :regexp => mac_regex
   end
   net = return_network(params['network'])
 

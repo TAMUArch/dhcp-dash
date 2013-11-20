@@ -1,11 +1,9 @@
 <h4><%=@network.network %></h4>
-
 <% if form.failed? %>
 <b><font color="red">Found invalid input, check your input and try again.</font></b>
 <br>
 <br>
 <% end %>
-
 <div>
   <form action="/network/<%=@network.network %>/edit" method="post" class="well">
     <table>
@@ -34,6 +32,7 @@
         <td align="left"><br><input type="submit" value="Save"></td>
       </tr>
     </table>
+    <input type="hidden" name="network" value="<%=@network.network%>">
   </form>
 </div>
 <br>

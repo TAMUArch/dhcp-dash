@@ -1,4 +1,9 @@
 <h3>Edit Host</h3>
+<% if form.failed? %>
+  <b><font color="red">Found invalid input, check your input and try again.</font></b>
+  <br>
+  <br>
+<% end %>
 <form action="/network/<%=@network%>/hosts/<%=@hostname%>/edit" method="post" class="well">
  <table>
    <tr>
