@@ -3,6 +3,7 @@ require 'json'
 require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
+require 'slim'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -70,7 +71,7 @@ get '/networks/new' do
 end
 
 get '/hosts/new' do
-  erb :hosts_form
+  slim :hosts_form
 end
 
 post '/networks/new' do
@@ -117,11 +118,11 @@ post '/hosts/new' do
   host_exists = exists_array.any?
 
   if form.failed?
-    output = erb :hosts_form
+    output = slim :hosts_form
     fill_in_form(output)
 
   elsif host_exists
-    output = erb :host_exists
+    output = slim :host_exists
     fill_in_form(output)
 
   else
@@ -135,7 +136,7 @@ end
 
 get '/network/:id/edit' do
   @network = return_network(params['id'])
-  erb :edit_network
+  slim :edit_network
 end
 
 get '/network/:id/hosts/:hostname/edit' do
@@ -143,7 +144,7 @@ get '/network/:id/hosts/:hostname/edit' do
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
-  erb :edit_host
+  slim :edit_host
 end
 
 get '/network/:id/hosts/:hostname/delete' do
@@ -166,7 +167,7 @@ post '/network/:id/edit' do
 
   if form.failed?
     @network = return_network(params['network'])
-    output = erb :edit_network
+    output = slim :edit_network
     fill_in_form(output)
   else
     net = return_network(params['network'])
@@ -207,11 +208,11 @@ post '/network/:id/hosts/:hostname/edit' do
     @network = net.network
     @host = net.hosts[params['hostname']]
     @hostname = params['hostname']
-    output = erb :edit_host
+    output = slim :edit_host
     fill_in_form(output)
 
   elsif host_exists
-    output = erb :host_exists
+    output = slim :host_exists
     fill_in_form(output)
 
   else
@@ -232,7 +233,7 @@ end
 
 get '/network/:id/hosts/new' do
   @network = params['id']
-  erb :hosts_form_direct
+  slim :hosts_form_direct
 end
 
 post '/network/:id/hosts/new' do
@@ -253,11 +254,11 @@ post '/network/:id/hosts/new' do
   host_exists = exists_array.any?
 
   if form.failed?
-    output = erb :hosts_form_direct
+    output = slim :hosts_form_direct
     fill_in_form(output)
 
   elsif host_exists
-    output = erb :host_exists
+    output = slim :host_exists
     fill_in_form(output)
 
   else

@@ -4,6 +4,7 @@ gem "sinatra"
 gem 'sinatra-formkeeper'
 gem 'omniauth-ldap'
 gem 'rspec'
+gem 'slim'
 gem "rerun"
 gem 'rb-fsevent', '~> 0.9.1'
 gem 'omniauth'
