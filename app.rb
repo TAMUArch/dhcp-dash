@@ -39,9 +39,9 @@ end
 
 get '/' do
   if session[:identity].nil?
-    erb 'You must authenticate to use this application.'
+    slim 'You must authenticate to use this application.'
   else
-    erb 'Welcome'
+    slim 'Welcome'
   end
 end
 
@@ -58,16 +58,16 @@ end
 
 get '/logout' do
   session.delete(:identity)
-  erb "<div class='alert alert-message'>Logged out</div>"
+  slim "<div class='alert alert-message'>Logged out</div>"
 end
 
 get "/network/:id" do
   @network = return_network(params["id"].gsub("_", "."))
-  erb :network 
+  slim :network
 end
 
 get '/networks/new' do
-  erb :networks_form
+  slim :networks_form
 end
 
 get '/hosts/new' do
@@ -87,7 +87,7 @@ post '/networks/new' do
   end
 
   if form.failed?
-    output = erb :networks_form
+    output = slim :networks_form
     fill_in_form(output)
   else
     net = return_network(params['network'])
@@ -152,7 +152,7 @@ get '/network/:id/hosts/:hostname/delete' do
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
-  erb :delete_host
+  slim :delete_host
 end
 
 post '/network/:id/edit' do

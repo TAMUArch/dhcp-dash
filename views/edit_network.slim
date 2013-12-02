@@ -33,11 +33,11 @@
       td
         b Hostname
       td
-        b MAC
-      td
         b IP
+      td
+        b MAC
     - @network.hosts.each do |h,v|
       tr
         td = h
-        td = v['mac']
         td = v['ip']
+        td = v['mac']

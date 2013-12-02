@@ -1,0 +1,46 @@
+h4 = @network.network
+.network
+  a.glyphicon.glyphicon-pencil style="float: right;" href="/network/#{@network.network}/edit" Edit Network
+  span.
+  .domain.row
+    .col-xs-3.col-sm-2
+      .txt Domain:
+    .col-xs-3.col-sm-2
+      .val = @network.domain
+  .netmask.row
+    .col-xs-3.col-sm-2
+      .txt Netmask:
+    .col-xs-3.col-sm-2 
+      .val = @network.netmask
+  .gateway.row
+    .col-xs-3.col-sm-2
+      .txt Gateway:
+    .col-xs-3.col-sm-2 
+      .val = @network.gateway
+  .nameservers.row
+    .col-xs-3.col-sm-2
+      .txt Nameservers:
+    .col-xs-3.col-sm-2
+      .val = @network.nameservers.join(",")
+.hosts
+  a.glyphicon.glyphicon-plus style="float: right;" href="/network/#{@network.network}/hosts/new" Add Host
+  span.
+  table.table.table-striped
+    tr
+      td
+        b Hostname
+      td
+        b IP
+      td
+        b MAC
+      td
+    - @network.hosts.each do |h,v|
+      tr
+        td = h
+        td = v['ip']
+        td = v['mac']
+        td
+          a.btn href="/network/#{@network.network}/hosts/#{h}/edit"
+            span.glyphicon.glyphicon-pencil
+          a.btn href="/network/#{@network.network}/hosts/#{h}/delete"
+            span.glyphicon.glyphicon-trash

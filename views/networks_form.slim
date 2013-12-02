@@ -1,0 +1,29 @@
+.error
+  - if form.failed?
+    h4 color="red" Found invalid input, check your input and try again.
+form.form-horizontal role="form" action="/networks/new" method="POST"
+  h3 Edit Host
+  .form-group
+    label.col-sm-2.control-label for="domain" Domain:
+    .col-sm-4
+      input#domain.form-control type="text"
+  .form-group
+    label.col-sm-2.control-label for="network" Network:
+    .col-sm-4
+      input#network.form-control type="text"
+  .form-group
+    label.col-sm-2.control-label for="netmask" Netmask:
+    .col-sm-4
+      input#network.form-control type="text"
+  .form-group
+    label.col-sm-2.control-label for="gateway" Gateway:
+    .col-sm-4
+      input#gateway.form-control type="text"
+  .form-group
+    label.col-sm-2.control-label for="nameservers" Nameservers:
+    .col-sm-4
+      abbr title="Must be comma delimited with no spaces."
+        input#nameservers.form-control type="type"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      button.btn.btn-default type="submit" Save
