@@ -39,9 +39,9 @@ end
 
 get '/' do
   if session[:identity].nil?
-    slim 'You must authenticate to use this application.'
+    slim "<div class='alert alert-message'>You must authenticate to use this application.</div>"
   else
-    slim 'Welcome'
+    slim :homepage
   end
 end
 
@@ -52,7 +52,7 @@ post '/auth/:provider/callback' do
   redirect '/'
 end
 
-get '/login/form' do 
+get '/login/form' do
   redirect "/auth/ldap"
 end
 

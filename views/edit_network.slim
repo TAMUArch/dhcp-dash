@@ -30,12 +30,9 @@
 .table
   table.table.table-striped
     tr
-      td
-        b Hostname
-      td
-        b IP
-      td
-        b MAC
+      th Hostname
+      th IP
+      th MAC
     - @network.hosts.each do |h,v|
       tr
         td = h

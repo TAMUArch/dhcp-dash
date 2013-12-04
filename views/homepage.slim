@@ -1,0 +1,11 @@
+h4 Networks
+.networks
+  .link.row
+    .col-xs-12.col-sm-12
+      a.btn.btn-default style="float: right;" href="/networks/new"
+        span.glyphicon.glyphicon-plus Network
+  .network_list
+    - networks.each do |network|
+      .network.row
+        .col-xs-3.col-sm-2
+          a href="/network/#{network}" #{network}

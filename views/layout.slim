@@ -28,14 +28,16 @@ html
                     a href="/network/#{network}"
                       = network
           ul.nav.navbar-right.navbar-nav
-            li.dropdown
-              a.dropdown-toggle href="#" data-toggle="dropdown"
-                = username
-              ul.dropdown-menu
+            - if session[:identity].nil?
                 li
                   a href="/login/form" Login
-                li
-                  a href="/logout" Logout
+            - if session[:identity]
+                li.dropdown
+                  a.dropdown-toggle href="#" data-toggle="dropdown"
+                    = username
+                  ul.dropdown-menu
+                    li
+                      a href="/logout" Logout
     .container
       = if @error then
         .alert.alert-error.alert-warning
