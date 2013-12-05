@@ -2,8 +2,9 @@ h4 = @network.network
 .network
   .link.row
     .col-xs-12.col-sm-12
-      a.btn.btn-default style="float: right;" href="/network/#{@network.network}/edit"
-        span.glyphicon.glyphicon-pencil Network
+      abbr title="Edit Network"
+        a.btn.btn-default style="float: right;" href="/network/#{@network.network}/edit"
+          span.glyphicon.glyphicon-pencil
   .domain.row
     .col-xs-4.col-sm-2
       .lbl Domain:
@@ -25,21 +26,51 @@ h4 = @network.network
     .col-xs-3.col-sm-2
       .val = @network.nameservers.join(",")
 .hosts
-  table.table.table-striped
-    tr
-      th Hostname
-      th IP
-      th MAC
-      th
-        a.btn.btn-default  style="float: right;" href="/network/#{@network.network}/hosts/new"
-          span.glyphicon.glyphicon-plus Host
-    - @network.hosts.each do |h,v|
+  table#hosts.table.table-striped.display
+    thead
       tr
-        td = h
-        td = v['ip']
-        td = v['mac']
-        td
-          a.btn.btn-default href="/network/#{@network.network}/hosts/#{h}/edit"
-            span.glyphicon.glyphicon-pencil
-          a.btn.btn-default href="/network/#{@network.network}/hosts/#{h}/delete"
-            span.glyphicon.glyphicon-trash
+        th Hostname
+        th IP
+        th MAC
+        th
+          abbr title="Add Host"
+            a.btn.btn-default  style="float: right;" href="/network/#{@network.network}/hosts/new"
+              span.glyphicon.glyphicon-plus
+    tbody
+      - @network.hosts.each do |h,v|
+        tr
+          td = h
+          td = v['ip']
+          td = v['mac']
+          td
+            a.btn.btn-default href="/network/#{@network.network}/hosts/#{h}/edit"
+              span.glyphicon.glyphicon-pencil
+            a.btn.btn-default.delete data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+              span.glyphicon.glyphicon-trash
+.deleteModal#deleteModal.modal.fade role="dialog"
+  .dialog.modal-dialog
+    .content.modal-content
+      form.form-horizontal role="form" action="/network/#{@network.network}/hosts/delete" method="POST"
+        .header.modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4.modal-title Are you sure you want to delete this host from #{@network.network}?
+        .body.modal-body
+          .form-group
+            label.col-sm-2.control-label for="hostname" Hostname:
+            .col-sm-4
+              input#hostname.form-control type="text" readonly="true"
+          .form-group
+            label.col-sm-2.control-label for="ip" IP:
+            .col-sm-4
+              input#ip.form-control type="text" readonly="true"
+          .form-group
+            label.col-sm-2.control-label for="mac" MAC:
+            .col-sm-4
+              input#mac.form-control type="text" readonly="true"
+          .form-group
+            .col-sm-4
+              input#network type="hidden" value="#{@network.network}"
+          .footer.modal-footer
+            .form-group
+                button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                button.btn.btn-primary type="submit" Delete

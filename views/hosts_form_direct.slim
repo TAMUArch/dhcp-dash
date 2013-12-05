@@ -6,19 +6,19 @@ form.form-horizontal role="form" action="/network/#{@network}/hosts/new" method=
   .form-group
     label.col-sm-2.control-label for="hostname" Hostname:
     .col-sm-4
-      input#hostname.form-control type="text"
+      input#hostname.form-control name="hostname" type="text"
   .form-group
     label.col-sm-2.control-label for="ip" IP:
     .col-sm-4
-      input#ip.form-control type="text"
+      input#ip.form-control name="ip" type="text"
   .form-group
     label.col-sm-2.control-label for="mac" MAC:
     .col-sm-4
-      input#mac.form-control type="text"
+      input#mac.form-control name="mac" type="text"
   .form-group
     label.col-sm-2.control-label for="network" Network:
     .col-sm-4
-      input#network.form-control type="text" value="#{@network}" readonly="true"
+      input#network.form-control name="network" type="text" value="#{@network}" readonly="true"
   .form-group
     .col-sm-offset-2.col-sm-10
       button.btn.btn-default type="submit" Save

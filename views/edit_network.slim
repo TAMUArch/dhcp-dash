@@ -6,35 +6,37 @@
     h4 = @network.network
     .form-group
       .hidden_value
-        input#network type="hidden" value="#{@network.network}"
+        input#network.form-control name="network" type="hidden" value= @network.network
     .form-group
       label.col-sm-2.control-label for="domain" Domain:
       .col-sm-4
-        input#domain.form-control type="text" value="#{@network.domain}"
+        input#domain.form-control name="domain" type="text" value="#{@network.domain}"
     .form-group
       label.col-sm-2.control-label for="netmask" Netmask:
       .col-sm-4
-        input#netmask.form-control type="text" value="#{@network.netmask}"
+        input#netmask.form-control name="netmask" type="text" value="#{@network.netmask}"
     .form-group
       label.col-sm-2.control-label for="gateway" Gateway:
       .col-sm-4
-        input#gateway.form-control type="text" value="#{@network.gateway}"
+        input#gateway.form-control name="gateway" type="text" value="#{@network.gateway}"
     .form-group
       label.col-sm-2.control-label for="nameservers" Nameservers:
       .col-sm-4
         abbr title="Must be comma delimited with no spaces."
-          input#nameservers.form-control type="text" value="#{@network.nameservers.join(",")}"
+          input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
     .form-group
       .col-sm-offset-2.col-sm-10
         button.btn.btn-default type="submit" Save
 .table
-  table.table.table-striped
-    tr
-      th Hostname
-      th IP
-      th MAC
-    - @network.hosts.each do |h,v|
+  table#hosts.table.table-striped
+    thead
       tr
-        td = h
-        td = v['ip']
-        td = v['mac']
+        th Hostname
+        th IP
+        th MAC
+    tbody
+      - @network.hosts.each do |h,v|
+        tr
+          td = h
+          td = v['ip']
+          td = v['mac']

@@ -62,7 +62,7 @@ get '/logout' do
 end
 
 get "/network/:id" do
-  @network = return_network(params["id"].gsub("_", "."))
+  @network = return_network(params['id'].gsub("_", "."))
   slim :network
 end
 
@@ -224,15 +224,16 @@ post '/network/:id/hosts/:hostname/edit' do
   end
 end
 
-post '/network/:id/hosts/:hostname/delete' do
+post '/network/:id/hosts/delete' do
+  puts params
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
-  redirect "/network/#{params['network']}"
+  redirect "/network/#{params['id']}"
 end
 
 get '/network/:id/hosts/new' do
-  @network = params['id']
+  @network = params['id'].gsub("_", ".")
   slim :hosts_form_direct
 end
 

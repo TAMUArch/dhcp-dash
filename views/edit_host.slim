@@ -7,20 +7,20 @@ form.form-horizontal role="form" action="/network/#{@network}/hosts/#{@hostname}
   .form-group
     label.col-sm-2.control-label for="hostname" Hostname:
     .col-sm-4
-      input#hostname.form-control type="text" value="#{@hostname}" readonly="true"
+      input#hostname.form-control name="hostname" type="text" value="#{@hostname}" readonly="true"
   .form-group
     label.col-sm-2.control-label for="ip" IP:
     .col-sm-4
-      input#ip.form-control type="text" value="#{@host['ip']}"
+      input#ip.form-control name="ip" type="text" value="#{@host['ip']}"
   .form-group
     label.col-sm-2.control-label for="mac" MAC:
     .col-sm-4
-      input#mac.form-control type="text" value="#{@host['mac']}"
+      input#mac.form-control name="mac" type="text" value="#{@host['mac']}"
   .form-group
     .col-sm-offset-2.col-sm-10
       button.btn.btn-default type="submit" Save
   .form-group
     .hidden-values
-      input#network type="hidden" value="#{@network}"
-      input#current_ip type="hidden" value="#{@host['ip']}"
-      input#current_mac type="hidden" value="#{@host['mac']}"
+      input#network name="network" type="hidden" value="#{@network}"
+      input#current_ip name="current_ip" type="hidden" value="#{@host['ip']}"
+      input#current_mac name="current+mac" type="hidden" value="#{@host['mac']}"
