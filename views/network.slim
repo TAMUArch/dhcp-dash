@@ -3,7 +3,7 @@ h4 = @network.network
   .link.row
     .col-xs-12.col-sm-12
       abbr title="Edit Network"
-        a.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
+        button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
           span.glyphicon.glyphicon-pencil
   .domain.row
     .col-xs-4.col-sm-2
@@ -26,7 +26,7 @@ h4 = @network.network
     .col-xs-3.col-sm-2
       .val = @network.nameservers.join(",")
 .hosts
-  table#hosts.table.table-striped.display
+  table#hosts.table.table-striped
     thead
       tr
         th Hostname
@@ -34,7 +34,7 @@ h4 = @network.network
         th MAC
         th
           abbr title="Add Host"
-            a.btn.btn-default.addHost style="float: right;" data-toggle="modal"
+            button.btn.btn-default.addHost style="float: right;" data-toggle="modal"
               span.glyphicon.glyphicon-plus
     tbody
       - @network.hosts.each do |h,v|
@@ -43,9 +43,9 @@ h4 = @network.network
           td = v['ip']
           td = v['mac']
           td
-            a.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+            button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
               span.glyphicon.glyphicon-pencil
-            a.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+            button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
               span.glyphicon.glyphicon-trash
 .modals
   .editNetworkModal#editNetworkModal.modal.fade role="dialog"
@@ -77,7 +77,7 @@ h4 = @network.network
                   input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
             .footer.modal-footer
               .form-group
-                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-default data-dismiss="modal" Cancel
                   button.btn.btn-primary type="submit" Save
   .addHostModal#addHostModal.modal.fade role="dialog"
     .dialog.modal-dialog
@@ -104,7 +104,7 @@ h4 = @network.network
                 input#networkAdd.form-control name="network" type="text" value="#{@network.network}" readonly="true"
             .footer.modal-footer
               .form-group
-                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-default data-dismiss="modal" Cancel
                   button.btn.btn-primary type="submit" Save
   .editHostModal#editHostModal.modal.fade role="dialog"
     .dialog.modal-dialog
@@ -116,15 +116,15 @@ h4 = @network.network
             .form-group
               label.col-sm-2.control-label for="hostnameEdit" Hostname:
               .col-sm-4
-                input#hostnameEdit.form-control type="text" name="hostname" readonly="true"
+                input#hostnameEdit.form-control name="hostname" type="text" readonly="true"
             .form-group
               label.col-sm-2.control-label for="ipEdit" IP:
               .col-sm-4
-                input#ipEdit.form-control type="text" name="ip"
+                input#ipEdit.form-control name="ip" type="text"
             .form-group
               label.col-sm-2.control-label for="macEdit" MAC:
               .col-sm-4
-                input#macEdit.form-control type="text" name="mac"
+                input#macEdit.form-control name="mac" type="text"
             .form-group
               .hidden-values
                 input#networkEdit type="hidden" name="network" value="#{@network.network}"
@@ -132,7 +132,7 @@ h4 = @network.network
                 input#current_mac type="hidden" name="current_mac"
             .footer.modal-footer
               .form-group
-                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-default data-dismiss="modal" Cancel
                   button.btn.btn-primary type="submit" Save
   .deleteHostModal#deleteHostModal.modal.fade role="dialog"
     .dialog.modal-dialog
@@ -144,19 +144,19 @@ h4 = @network.network
             .form-group
               label.col-sm-2.control-label for="hostnameDelete" Hostname:
               .col-sm-4
-                input#hostnameDelete.form-control type="text" name="hostname" readonly="true"
+                input#hostnameDelete.form-control name="hostname" type="text" readonly="true"
             .form-group
               label.col-sm-2.control-label for="ipDelete" IP:
               .col-sm-4
-                input#ipDelete.form-control type="text" name="ip" readonly="true"
+                input#ipDelete.form-control name="ip" type="text" readonly="true"
             .form-group
               label.col-sm-2.control-label for="macDelete" MAC:
               .col-sm-4
-                input#macDelete.form-control type="text" name="mac" readonly="true"
+                input#macDelete.form-control name="mac" type="text" readonly="true"
             .form-group
               .hidden-values
-                input#networkDelete type="hidden" name="network" value="#{@network.network}"
+                input#networkDelete name="network" type="hidden" value="#{@network.network}"
             .footer.modal-footer
               .form-group
-                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-default data-dismiss="modal" Cancel
                   button.btn.btn-primary type="submit" Delete
