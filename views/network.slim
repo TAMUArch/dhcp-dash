@@ -3,7 +3,7 @@ h4 = @network.network
   .link.row
     .col-xs-12.col-sm-12
       abbr title="Edit Network"
-        a.btn.btn-default style="float: right;" href="/network/#{@network.network}/edit"
+        a.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
           span.glyphicon.glyphicon-pencil
   .domain.row
     .col-xs-4.col-sm-2
@@ -34,7 +34,7 @@ h4 = @network.network
         th MAC
         th
           abbr title="Add Host"
-            a.btn.btn-default  style="float: right;" href="/network/#{@network.network}/hosts/new"
+            a.btn.btn-default.addHost style="float: right;" data-toggle="modal"
               span.glyphicon.glyphicon-plus
     tbody
       - @network.hosts.each do |h,v|
@@ -48,6 +48,64 @@ h4 = @network.network
             a.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
               span.glyphicon.glyphicon-trash
 .modals
+  .editNetworkModal#editNetworkModal.modal.fade role="dialog"
+    .dialog.modal-dialog
+      .content.modal-content
+        form.form-horizontal role="form" action="/network/#{@network.network}/edit" method="POST"
+          .header.modal-header
+            h4.modal-title Edit Network - #{@network.network}
+          .body.modal-body
+            .form-group
+              .hidden-values
+                input#network.form-control name="network" type="hidden" value="#{@network.network}"
+            .form-group
+              label.col-sm-2.control-label for="domain" Domain:
+              .col-sm-4
+                input#domain.form-control name="domain" type="text" value="#{@network.domain}"
+            .form-group
+              label.col-sm-2.control-label for="netmask" Netmask:
+              .col-sm-4
+                input#netmask.form-control name="netmask" type="text" value="#{@network.netmask}"
+            .form-group
+              label.col-sm-2.control-label for="gateway" Gateway:
+              .col-sm-4
+                input#gateway.form-control name="gateway" type="text" value="#{@network.gateway}"
+            .form-group
+              label.col-sm-2.control-label for="nameservers" Nameservers:
+              .col-sm-4
+                abbr title="Must be comma delimited with no spaces."
+                  input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
+            .footer.modal-footer
+              .form-group
+                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-primary type="submit" Save
+  .addHostModal#addHostModal.modal.fade role="dialog"
+    .dialog.modal-dialog
+      .content.modal-content
+        form.form-horizontal role="form" action="/network/#{@network.network}/hosts/new" method="POST"
+          .header.modal-header
+            h4.modal-title Add Host
+          .body.modal-body
+            .form-group
+              label.col-sm-2.control-label for="hostnameAdd" Hostname:
+              .col-sm-4
+                input#hostnameAdd.form-control name="hostname" type="text"
+            .form-group
+              label.col-sm-2.control-label for="ipAdd" IP:
+              .col-sm-4
+                input#ipAdd.form-control name="ip" type="text"
+            .form-group
+              label.col-sm-2.control-label for="macAdd" Mac:
+              .col-sm-4
+                input#macAdd.form-control name="mac" type="text" value="#{@network.gateway}"
+            .form-group
+              label.col-sm-2.control-label for="networkAdd" Network:
+              .col-sm-4
+                input#networkAdd.form-control name="network" type="text" value="#{@network.network}" readonly="true"
+            .footer.modal-footer
+              .form-group
+                  button.btn.btn-default type="button" data-dismiss="modal" Cancel
+                  button.btn.btn-primary type="submit" Save
   .editHostModal#editHostModal.modal.fade role="dialog"
     .dialog.modal-dialog
       .content.modal-content
@@ -56,15 +114,15 @@ h4 = @network.network
             h4.modal-title Edit Host
           .body.modal-body
             .form-group
-              label.col-sm-2.control-label for="hostname" Hostname:
+              label.col-sm-2.control-label for="hostnameEdit" Hostname:
               .col-sm-4
                 input#hostnameEdit.form-control type="text" name="hostname" readonly="true"
             .form-group
-              label.col-sm-2.control-label for="ip" IP:
+              label.col-sm-2.control-label for="ipEdit" IP:
               .col-sm-4
                 input#ipEdit.form-control type="text" name="ip"
             .form-group
-              label.col-sm-2.control-label for="mac" MAC:
+              label.col-sm-2.control-label for="macEdit" MAC:
               .col-sm-4
                 input#macEdit.form-control type="text" name="mac"
             .form-group
@@ -81,22 +139,22 @@ h4 = @network.network
       .content.modal-content
         form.form-horizontal role="form" action="/network/#{@network.network}/hosts/delete" method="POST"
           .header.modal-header
-            h4.modal-title Are you sure you want to delete this host from #{@network.network}?
+            h4.modal-title Are you sure?
           .body.modal-body
             .form-group
-              label.col-sm-2.control-label for="hostname" Hostname:
+              label.col-sm-2.control-label for="hostnameDelete" Hostname:
               .col-sm-4
                 input#hostnameDelete.form-control type="text" name="hostname" readonly="true"
             .form-group
-              label.col-sm-2.control-label for="ip" IP:
+              label.col-sm-2.control-label for="ipDelete" IP:
               .col-sm-4
                 input#ipDelete.form-control type="text" name="ip" readonly="true"
             .form-group
-              label.col-sm-2.control-label for="mac" MAC:
+              label.col-sm-2.control-label for="macDelete" MAC:
               .col-sm-4
                 input#macDelete.form-control type="text" name="mac" readonly="true"
             .form-group
-              .col-sm-4
+              .hidden-values
                 input#networkDelete type="hidden" name="network" value="#{@network.network}"
             .footer.modal-footer
               .form-group

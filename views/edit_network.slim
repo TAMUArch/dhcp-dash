@@ -3,7 +3,7 @@
     h4 color="red" Found invalid input, check your input and try again.
 .form
   form.form-horizontal role="form" action="/network/#{@network.network}/edit" method="POST"
-    h4 = @network.network
+    h4 Edit #{@network.network}
     .form-group
       .hidden_value
         input#network.form-control name="network" type="hidden" value= @network.network

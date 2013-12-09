@@ -66,13 +66,17 @@ get "/network/:id" do
   slim :network
 end
 
+=begin
 get '/networks/new' do
   slim :networks_form
 end
+=end
 
+=begin
 get '/hosts/new' do
   slim :hosts_form
 end
+=end
 
 post '/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
@@ -134,34 +138,32 @@ post '/hosts/new' do
   end
 end
 
+=begin
 get '/network/:id/edit' do
   @network = return_network(params['id'])
   slim :edit_network
 end
+=end
 
-get '/network/:id/hosts/edit' do
-  puts params
-  slim :edit_host_modal
 =begin
+get '/network/:id/hosts/edit' do
   net = return_network(params['id'])
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
   slim :edit_host
-=end
 end
+=end
 
-get '/network/:id/hosts/delete' do
-  puts params
-  slim :delete_host_modal
 =begin
+get '/network/:id/hosts/delete' do
   net = return_network(params['id'])
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
   slim :delete_host
-=end
 end
+=end
 
 post '/network/:id/edit' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
@@ -240,10 +242,12 @@ post '/network/:id/hosts/delete' do
   redirect "/network/#{params['id']}"
 end
 
+=begin
 get '/network/:id/hosts/new' do
   @network = params['id'].gsub("_", ".")
   slim :hosts_form_direct
 end
+=end
 
 post '/network/:id/hosts/new' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}

@@ -1,11 +1,16 @@
 $(document).ready(function(){
+  $(".addNetwork").click(function(){
+    $('#addNetworkModal').modal('show');
+  });
+});
+$(document).ready(function(){
   $(".editNetwork").click(function(){
-    $("#hostnameEdit").val($(this).data('hostname'));
-    $("#ipEdit").val($(this).data('ip'));
-    $("#macEdit").val($(this).data('mac'));
-    $("#current_ip").val($(this).data('ip'));
-    $("#current_mac").val($(this).data('mac'));
-    $('#editHostModal').modal('show');
+    $('#editNetworkModal').modal('show');
+  });
+});
+$(document).ready(function(){
+  $(".addHost").click(function(){
+    $('#addHostModal').modal('show');
   });
 });
 $(document).ready(function(){
