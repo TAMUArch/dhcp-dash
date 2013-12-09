@@ -139,20 +139,28 @@ get '/network/:id/edit' do
   slim :edit_network
 end
 
-get '/network/:id/hosts/:hostname/edit' do
+get '/network/:id/hosts/edit' do
+  puts params
+  slim :edit_host_modal
+=begin
   net = return_network(params['id'])
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
   slim :edit_host
+=end
 end
 
-get '/network/:id/hosts/:hostname/delete' do
+get '/network/:id/hosts/delete' do
+  puts params
+  slim :delete_host_modal
+=begin
   net = return_network(params['id'])
   @network = net.network
   @host = net.hosts[params['hostname']]
   @hostname = params['hostname']
   slim :delete_host
+=end
 end
 
 post '/network/:id/edit' do
@@ -180,7 +188,7 @@ post '/network/:id/edit' do
   end
 end
 
-post '/network/:id/hosts/:hostname/edit' do
+post '/network/:id/hosts/edit' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do

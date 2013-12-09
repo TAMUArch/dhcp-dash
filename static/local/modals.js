@@ -1,8 +1,28 @@
 $(document).ready(function(){
-  $(".delete").click(function(){
-    $("#hostname").val($(this).data('hostname'));
-    $("#ip").val($(this).data('ip'));
-    $("#mac").val($(this).data('mac'));
-    $('#deleteModal').modal('show');
+  $(".editNetwork").click(function(){
+    $("#hostnameEdit").val($(this).data('hostname'));
+    $("#ipEdit").val($(this).data('ip'));
+    $("#macEdit").val($(this).data('mac'));
+    $("#current_ip").val($(this).data('ip'));
+    $("#current_mac").val($(this).data('mac'));
+    $('#editHostModal').modal('show');
+  });
+});
+$(document).ready(function(){
+  $(".editHost").click(function(){
+    $("#hostnameEdit").val($(this).data('hostname'));
+    $("#ipEdit").val($(this).data('ip'));
+    $("#macEdit").val($(this).data('mac'));
+    $("#current_ip").val($(this).data('ip'));
+    $("#current_mac").val($(this).data('mac'));
+    $('#editHostModal').modal('show');
+  });
+});
+$(document).ready(function(){
+  $(".deleteHost").click(function(){
+    $("#hostnameDelete").val($(this).data('hostname'));
+    $("#ipDelete").val($(this).data('ip'));
+    $("#macDelete").val($(this).data('mac'));
+    $('#deleteHostModal').modal('show');
   });
 });
