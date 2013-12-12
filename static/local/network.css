@@ -1,2 +1,9 @@
+.lbl {
+  font-weight: bold;
+}
 .hosts {
   padding-top: 25px;
+}
+.modals .form-group label{
+  text-align: left;
+}

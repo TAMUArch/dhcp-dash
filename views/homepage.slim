@@ -1,45 +1,48 @@
-h4 Networks
-.networks
-  .link.row
-    .col-xs-12.col-sm-12
-      button.btn.btn-default.addNetwork style="float: right;" data-toggle="modal" title="Add Network"
-        span.glyphicon.glyphicon-plus
-  .network_list
-    - networks.each do |network|
-      .network.row
-        .col-xs-3.col-sm-2
-          a href="/network/#{network}" #{network}
-.modals
-  .addNetworkModal#addNetworkModal.modal.fade role="dialog"
-    .dialog.modal-dialog
-      .content.modal-content
-        form.form-horizontal role="form" action="/networks/new" method="POST"
-          .header.modal-header
-            h4.modal-title Add Network
-          .body.modal-body
-            .form-group
-              label.col-sm-2.control-label for="domain" Domain:
-              .col-sm-6
-                input#domain.form-control name="domain" type="text"
-            .form-group
-              label.col-sm-2.control-label for="network" Network:
-              .col-sm-6
-                input#network.form-control name="network" type="text"
-            .form-group
-              label.col-sm-2.control-label for="netmask" Netmask:
-              .col-sm-6
-                input#netmask.form-control name="netmask" type="text"
-            .form-group
-              label.col-sm-2.control-label for="gateway" Gateway:
-              .col-sm-6
-                input#gateway.form-control name="gateway" type="text"
-            .form-group
-              label.col-sm-2.control-label for="nameservers" Nameservers:
-              .col-sm-6
-                abbr title="Must be comma delimited with no spaces."
-                  input#nameservers.form-control name="nameservers" type="text"
-          .footer.modal-footer
-            .form-group
-              .col-sm-offset-2.com-sm-10
-                button.btn.btn-default data-dismiss="modal" Cancel
-                button.btn.btn-primary type="submit" Save
+head
+  link href="/local/homepage.css" rel="stylesheet"
+  h4 Networks
+body
+  .networks
+    .link.row
+      .col-xs-12.col-sm-12
+        button.btn.btn-default.addNetwork style="float: right;" data-toggle="modal" title="Add Network"
+          span.glyphicon.glyphicon-plus
+    .network_list
+      - networks.each do |network|
+        .network.row
+          .col-xs-3.col-sm-2
+            a href="/network/#{network}" #{network}
+  .modals
+    .addNetworkModal#addNetworkModal.modal.fade role="dialog"
+      .dialog.modal-dialog
+        .content.modal-content
+          form.form-horizontal role="form" action="/networks/new" method="POST"
+            .header.modal-header
+              h4.modal-title Add Network
+            .body.modal-body
+              .form-group
+                label.col-sm-2.control-label for="domain" Domain:
+                .col-sm-6
+                  input#domain.form-control name="domain" type="text"
+              .form-group
+                label.col-sm-2.control-label for="network" Network:
+                .col-sm-6
+                  input#network.form-control name="network" type="text"
+              .form-group
+                label.col-sm-2.control-label for="netmask" Netmask:
+                .col-sm-6
+                  input#netmask.form-control name="netmask" type="text"
+              .form-group
+                label.col-sm-2.control-label for="gateway" Gateway:
+                .col-sm-6
+                  input#gateway.form-control name="gateway" type="text"
+              .form-group
+                label.col-sm-2.control-label for="nameservers" Nameservers:
+                .col-sm-6
+                  abbr title="Must be comma delimited with no spaces."
+                    input#nameservers.form-control name="nameservers" type="text"
+            .footer.modal-footer
+              .form-group
+                .col-sm-offset-2.com-sm-10
+                  button.btn.btn-default data-dismiss="modal" Cancel
+                  button.btn.btn-primary type="submit" Save
