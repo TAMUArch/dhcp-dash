@@ -1,0 +1,79 @@
+E, [2013-12-12T14:04:26.235849 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:26.235915 #77120] ERROR -- : retrying in 0.5 seconds (4 tries left)
+E, [2013-12-12T14:04:26.737105 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:26.737164 #77120] ERROR -- : retrying in 0.5 seconds (3 tries left)
+E, [2013-12-12T14:04:27.237890 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:27.237952 #77120] ERROR -- : retrying in 0.5 seconds (2 tries left)
+E, [2013-12-12T14:04:27.739181 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:27.739242 #77120] ERROR -- : retrying in 0.5 seconds (1 tries left)
+E, [2013-12-12T14:04:28.239969 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:28.240031 #77120] ERROR -- : retrying in 0.5 seconds (0 tries left)
+E, [2013-12-12T14:04:28.741209 #77120] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+/Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `bind': Address already in use - bind(2) (Errno::EADDRINUSE)
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `new_tcp_server'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:165:in `bind_listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:255:in `listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `block in bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `each'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:146:in `start'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/bin/unicorn:126:in `<top (required)>'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `load'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `<main>'
+E, [2013-12-12T14:04:37.043421 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:37.043477 #77144] ERROR -- : retrying in 0.5 seconds (4 tries left)
+E, [2013-12-12T14:04:37.544714 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:37.544771 #77144] ERROR -- : retrying in 0.5 seconds (3 tries left)
+E, [2013-12-12T14:04:38.045446 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:38.045507 #77144] ERROR -- : retrying in 0.5 seconds (2 tries left)
+E, [2013-12-12T14:04:38.546597 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:38.546662 #77144] ERROR -- : retrying in 0.5 seconds (1 tries left)
+E, [2013-12-12T14:04:39.047391 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:39.047452 #77144] ERROR -- : retrying in 0.5 seconds (0 tries left)
+E, [2013-12-12T14:04:39.548683 #77144] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+/Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `bind': Address already in use - bind(2) (Errno::EADDRINUSE)
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `new_tcp_server'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:165:in `bind_listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:255:in `listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `block in bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `each'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:146:in `start'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/bin/unicorn:126:in `<top (required)>'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `load'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `<main>'
+E, [2013-12-12T14:04:45.082067 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:45.082126 #77161] ERROR -- : retrying in 0.5 seconds (4 tries left)
+E, [2013-12-12T14:04:45.583342 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:45.583406 #77161] ERROR -- : retrying in 0.5 seconds (3 tries left)
+E, [2013-12-12T14:04:46.083585 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:46.083643 #77161] ERROR -- : retrying in 0.5 seconds (2 tries left)
+E, [2013-12-12T14:04:46.584876 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:46.584946 #77161] ERROR -- : retrying in 0.5 seconds (1 tries left)
+E, [2013-12-12T14:04:47.085681 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+E, [2013-12-12T14:04:47.085741 #77161] ERROR -- : retrying in 0.5 seconds (0 tries left)
+E, [2013-12-12T14:04:47.586916 #77161] ERROR -- : adding listener failed addr=0.0.0.0:4567 (in use)
+/Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `bind': Address already in use - bind(2) (Errno::EADDRINUSE)
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:185:in `new_tcp_server'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/socket_helper.rb:165:in `bind_listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:255:in `listen'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `block in bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `each'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:801:in `bind_new_listeners!'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/lib/unicorn/http_server.rb:146:in `start'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/gems/unicorn-4.7.0/bin/unicorn:126:in `<top (required)>'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `load'
+	from /Users/vblessing/.rvm/gems/ruby-2.0.0-p247@dhcp_dash/bin/unicorn:23:in `<main>'
+I, [2013-12-12T14:07:37.560910 #77377]  INFO -- : listening on addr=0.0.0.0:4567 fd=9
+I, [2013-12-12T14:07:37.560994 #77377]  INFO -- : worker=0 spawning...
+I, [2013-12-12T14:07:37.562115 #77377]  INFO -- : worker=1 spawning...
+I, [2013-12-12T14:07:37.562523 #77377]  INFO -- : master process ready
+I, [2013-12-12T14:07:37.562971 #77378]  INFO -- : worker=0 spawned pid=77378
+I, [2013-12-12T14:07:37.563461 #77378]  INFO -- : Refreshing Gem list
+I, [2013-12-12T14:07:37.563448 #77379]  INFO -- : worker=1 spawned pid=77379
+I, [2013-12-12T14:07:37.563748 #77379]  INFO -- : Refreshing Gem list
+I, [2013-12-12T14:07:37.872814 #77379]  INFO -- : worker=1 ready
+I, [2013-12-12T14:07:37.872813 #77378]  INFO -- : worker=0 ready
+I, [2013-12-12T14:08:21.858538 #77377]  INFO -- : reaped #<Process::Status: pid 77379 exit 0> worker=1
+I, [2013-12-12T14:08:21.858620 #77377]  INFO -- : reaped #<Process::Status: pid 77378 exit 0> worker=0
+I, [2013-12-12T14:08:21.858828 #77377]  INFO -- : master complete

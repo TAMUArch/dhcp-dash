@@ -1,0 +1,5 @@
+listen 4567
+worker_processes 2
+pid "./unicorn.pid"
+stderr_path "./unicorn.log"
+stdout_path "./unicorn.log"
