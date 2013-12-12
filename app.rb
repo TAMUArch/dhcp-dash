@@ -61,22 +61,10 @@ get '/logout' do
   slim "<div class='alert alert-message'>Logged out</div>"
 end
 
-get "/network/:id" do
+get '/network/:id' do
   @network = return_network(params['id'].gsub("_", "."))
   slim :network
 end
-
-=begin
-get '/networks/new' do
-  slim :networks_form
-end
-=end
-
-=begin
-get '/hosts/new' do
-  slim :hosts_form
-end
-=end
 
 post '/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
@@ -104,7 +92,7 @@ post '/networks/new' do
   end
 end
 
-post '/hosts/new' do
+post '/network/:id/hosts/new' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
@@ -137,33 +125,6 @@ post '/hosts/new' do
     redirect "/network/#{params['network']}"
   end
 end
-
-=begin
-get '/network/:id/edit' do
-  @network = return_network(params['id'])
-  slim :edit_network
-end
-=end
-
-=begin
-get '/network/:id/hosts/edit' do
-  net = return_network(params['id'])
-  @network = net.network
-  @host = net.hosts[params['hostname']]
-  @hostname = params['hostname']
-  slim :edit_host
-end
-=end
-
-=begin
-get '/network/:id/hosts/delete' do
-  net = return_network(params['id'])
-  @network = net.network
-  @host = net.hosts[params['hostname']]
-  @hostname = params['hostname']
-  slim :delete_host
-end
-=end
 
 post '/network/:id/edit' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
@@ -241,45 +202,3 @@ post '/network/:id/hosts/delete' do
   save_network(net)
   redirect "/network/#{params['id']}"
 end
-
-=begin
-get '/network/:id/hosts/new' do
-  @network = params['id'].gsub("_", ".")
-  slim :hosts_form_direct
-end
-=end
-
-post '/network/:id/hosts/new' do
-  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
-  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
-  form do
-    field :hostname, :present => true
-    field :ip, :present => true, :regexp => ip_regex
-    field :mac, :present => true, :regexp => mac_regex
-  end
-  net = return_network(params['network'])
-
-  exists_array = Array.new
-  exists_array = [net.hostname_exists?(params['hostname']),
-                  net.host_ip_exists?(params['ip']),
-                  net.host_mac_exists?(params['mac'])]
-
-  host_exists = exists_array.any?
-
-  if form.failed?
-    output = slim :hosts_form_direct
-    fill_in_form(output)
-
-  elsif host_exists
-    output = slim :host_exists
-    fill_in_form(output)
-
-  else
-    net.add_host(params['hostname'],
-             params['ip'],
-             params['mac'])
-    save_network(net)
-    redirect "/network/#{params['network']}"
-  end
-end
-
