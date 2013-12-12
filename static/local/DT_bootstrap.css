@@ -5,7 +5,6 @@ div.dataTables_length label {
 }
 
 div.dataTables_length select {
-  width: 75px;
   float: left;
 }
 
@@ -37,7 +36,7 @@ div.dataTables_paginate {
 
 div.dataTables_paginate ul.pagination {
   margin: 2px;
-}
+  }
 
 table.dataTable,
 table.dataTable td,
@@ -226,7 +225,7 @@ ul.tabs {
 }
 
 ul.tabs li {
-  display: block;
+  display: inline;
   float: left;
   padding: 0 20px;
   height: 40px;
