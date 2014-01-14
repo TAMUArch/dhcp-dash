@@ -39,17 +39,27 @@ end
 
 get '/' do
   if session[:identity].nil?
-    slim "<div class='alert alert-message'>You must authenticate to use this application.</div>"
+    slim "<div class='alert-message'><b>You must authenticate to use this application.</b></div>"
   else
     slim :homepage
   end
 end
 
 post '/auth/:provider/callback' do
-  session[:identity] = env['omniauth.auth'].info.name
-  puts env['omniauth.auth'].info.name
-  puts session[:identity]
-  redirect '/'
+  membership = env['omniauth.auth'].extra.raw_info.memberOf
+  if membership.include?("CN=ITS,OU=Groups,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+    session[:identity] = env['omniauth.auth'].info.name
+    puts env['omniauth.auth'].info.name
+    puts session[:identity]
+    redirect '/'
+  else
+    session.delete(:identity)
+    slim "<div class='alert-message'><b>You are not authorized to access this application.</b></div>"
+  end
+end
+
+get '/auth/failure?' do
+  slim "<div class='alert-message'><b>Invalid credentials. Please make another login attempt.</b></div>"
 end
 
 get '/login/form' do
@@ -58,7 +68,7 @@ end
 
 get '/logout' do
   session.delete(:identity)
-  slim "<div class='alert alert-message'>Logged out</div>"
+  slim "<div class='alert-message'><b>Logged out</b></div>"
 end
 
 get '/network/:id' do
