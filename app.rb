@@ -41,21 +41,49 @@ get '/' do
   if session[:identity].nil?
     slim "<div class='alert-message'><b>You must authenticate to use this application.</b></div>"
   else
-    slim :homepage
+    @spectator_view = true
+    slim :homepage, :layout => :layout_spectator
   end
 end
 
+get '/user' do
+  if session[:identity].nil?
+    slim "<div class='alert-message'><b>You must authenticate to use this application.</b></div>"
+  else
+    @user_view = true
+    slim :homepage, :layout => :layout_user
+  end
+end
+
+get '/admin' do
+  if session[:identity].nil?
+    slim "<div class='alert-message'><b>You must authenticate to use this application.</b></div>"
+  else
+    slim :homepage
+  end
+end
 post '/auth/:provider/callback' do
   membership = env['omniauth.auth'].extra.raw_info.memberOf
-  if membership.include?("CN=ITS,OU=Groups,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
-    session[:identity] = env['omniauth.auth'].info.name
-    puts env['omniauth.auth'].info.name
-    puts session[:identity]
-    redirect '/'
-  else
-    session.delete(:identity)
-    slim "<div class='alert-message'><b>You are not authorized to access this application.</b></div>"
-  end
+  case membership
+   when membership.include?("CN=ITS Admins,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+      session[:identity] = env['omniauth.auth'].info.name
+      puts env['omniauth.auth'].info.name
+      puts session[:identity]
+      redirect '/admin'
+    when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+      session[:identity] = env['omniauth.auth'].info.name
+      puts env['omniauth.auth'].info.name
+      puts session[:identity]
+      redirect '/user'
+    when membership.include?("CN=ITS,OU=Groups,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+      session[:identity] = env['omniauth.auth'].info.name
+      puts env['omniauth.auth'].info.name
+      puts session[:identity]
+      redirect '/'
+    else
+      session.delete(:identity)
+      slim "<div class='alert-message'><b>You are not authorized to access this application.</b></div>"
+    end
 end
 
 get '/auth/failure?' do
@@ -73,10 +101,22 @@ end
 
 get '/network/:id' do
   @network = return_network(params['id'].gsub("_", "."))
+  @spectator_view = true
+  slim :network, :layout => :layout_spectator
+end
+
+get '/user/network/:id' do
+  @network = return_network(params['id'].gsub("_", "."))
+  @user_view = true
+  slim :network, :layout => :layout_user
+end
+
+get '/admin/network/:id' do
+  @network = return_network(params['id'].gsub("_", "."))
   slim :network
 end
 
-post '/networks/new' do
+post '/admin/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
@@ -98,11 +138,11 @@ post '/networks/new' do
     net.gateway = params['gateway']
     net.nameservers = params['nameservers'].split(",")
     save_network(net)
-    redirect "/network/#{params['network']}"
+    redirect "/admin/network/#{params['network']}"
   end
 end
 
-post '/network/:id/hosts/new' do
+post '/user/network/:id/hosts/new' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
@@ -132,11 +172,45 @@ post '/network/:id/hosts/new' do
              params['ip'],
              params['mac'])
     save_network(net)
-    redirect "/network/#{params['network']}"
+    redirect "/user/network/#{params['network']}"
   end
 end
 
-post '/network/:id/edit' do
+post '/admin/network/:id/hosts/new' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
+  form do
+    field :hostname, :present => true
+    field :ip, :present => true, :regexp => ip_regex
+    field :mac, :present => true, :regexp => mac_regex
+  end
+  net = return_network(params['network'])
+
+  exists_array = Array.new
+  exists_array = [net.hostname_exists?(params['hostname']),
+                  net.host_ip_exists?(params['ip']),
+                  net.host_mac_exists?(params['mac'])]
+
+  host_exists = exists_array.any?
+
+  if form.failed?
+    output = slim :hosts_form
+    fill_in_form(output)
+
+  elsif host_exists
+    output = slim :host_exists
+    fill_in_form(output)
+
+  else
+    net.add_host(params['hostname'],
+             params['ip'],
+             params['mac'])
+    save_network(net)
+    redirect "/admin/network/#{params['network']}"
+  end
+end
+
+post '/admin/network/:id/edit' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
@@ -157,11 +231,11 @@ post '/network/:id/edit' do
     net.gateway = params['gateway']
     net.nameservers = params['nameservers'].split(",")
     save_network(net)
-    redirect "/network/#{params['network']}"
+    redirect "/admin/network/#{params['network']}"
   end
 end
 
-post '/network/:id/hosts/edit' do
+post '/user/network/:id/hosts/edit' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
   form do
@@ -201,14 +275,66 @@ post '/network/:id/hosts/edit' do
              params['ip'],
              params['mac'])
     save_network(net)
-    redirect "/network/#{params['network']}"
+    redirect "/user/network/#{params['network']}"
   end
 end
 
-post '/network/:id/hosts/delete' do
+post '/admin/network/:id/hosts/edit' do
+  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
+  form do
+    field :hostname, :present => true
+    field :ip, :present => true, :regexp => ip_regex
+    field :mac, :present => true, :regexp => mac_regex
+  end
+  net = return_network(params['network'])
+
+  unless params['ip'] == params['current_ip']
+    ip_exists = net.host_ip_exists?(params['ip'])
+  end
+
+  unless params['mac'] == params['current_mac']
+    mac_exists = net.host_mac_exists?(params['mac'])
+  end
+
+  exists_array =  [ip_exists,
+                  mac_exists]
+
+  host_exists = exists_array.any?
+
+  if form.failed?
+    net = return_network(params['network'])
+    @network = net.network
+    @host = net.hosts[params['hostname']]
+    @hostname = params['hostname']
+    output = slim :edit_host
+    fill_in_form(output)
+
+  elsif host_exists
+    output = slim :host_exists
+    fill_in_form(output)
+
+  else
+    net.edit_host(params['hostname'],
+             params['ip'],
+             params['mac'])
+    save_network(net)
+    redirect "/admin/network/#{params['network']}"
+  end
+end
+
+post '/user/network/:id/hosts/delete' do
   puts params
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
-  redirect "/network/#{params['id']}"
+  redirect "/user/network/#{params['id']}"
+end
+
+post '/admin/network/:id/hosts/delete' do
+  puts params
+  net = return_network(params['id'])
+  net.delete_host(params['hostname'])
+  save_network(net)
+  redirect "/admin/network/#{params['id']}"
 end

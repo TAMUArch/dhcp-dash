@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    meta http-equiv='content-type' content='text/html; charset=utf-8'
+    meta name= 'viewport' content='width=device-width, initial-scale=1.0'
+
+    title DHCP Dashboard
+
+    link rel='stylesheet' href='/vendor/bootstrap/css/bootstrap.min.css'
+    link rel='stylesheet' href='/vendor/fontawesome/css/font-awesome.min.css'
+    link rel='stylesheet' href='/local/local.css'
+
+    script type='text/javascript' charset='utf-8' src='/vendor/jquery-1.9.1.min.js'
+    script type='text/javascript' charset='utf-8' src='/vendor/bootstrap/js/bootstrap.min.js'
+    script type='text/javascript' charset='utf-8' src='/vendor/DataTables/media/js/jquery.dataTables.js'
+    script type='text/javascript' charset='utf-8' src='/local/local.js'
+
+  body
+    .navbar.navbar-inverse.navbar-static-top
+      .container
+        .navbar-header
+          button.navbar-toggle data-toggle="collapse" data-target=".navbar-collapse"
+            span.sr-only Toggle Navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href="/" DHCP Dashboard
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li.dropdown
+              a.dropdown-toggle href="#" data-toggle="dropdown" Networks
+              ul.dropdown-menu
+                - networks.each do |network|
+                  li
+                    a href="/network/#{network}"
+                      = network
+          ul.nav.navbar-right.navbar-nav
+            - if session[:identity].nil?
+                li
+                  a href="/login/form" Login
+            - if session[:identity]
+                li.dropdown
+                  a.dropdown-toggle href="#" data-toggle="dropdown"
+                    = username
+                  ul.dropdown-menu
+                    li
+                      a href="/logout" Logout
+    .container
+      = if @error then
+        .alert.alert-error.alert-warning
+          #{@error}
+      == yield
