@@ -41,4 +41,8 @@ module DHCPDash
     end
     net
   end
+
+  def delete_network(id)
+    File.delete("./networks/#{id}.json")
+  end
 end

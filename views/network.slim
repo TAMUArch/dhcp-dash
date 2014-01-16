@@ -5,9 +5,13 @@ body
     -if not defined? @restricted_view
       .link.row
         .col-xs-12.col-sm-12
+          abbr title="Delete Network"
+            button.btn.btn-default.deleteNetwork style="float: right;" data-toggle="modal" data-target="#deleteNetworkModal"
+              span.glyphicon.glyphicon-trash
           abbr title="Edit Network"
-            button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
+            button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal" data-target="#editNetworkModal"
               span.glyphicon.glyphicon-pencil
+
     .domain.row
       .col-xs-4.col-sm-2
         .lbl Domain:
@@ -116,6 +120,41 @@ body
                 .form-group
                     button.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Save
+    .deleteNetworkModal#deleteNetworkModal.modal.fade role="dialog"
+      .dialog.modal-dialog
+        .content.modal-content
+          form.form-horizontal role="form" action="/network/#{@network.network}/delete" method="POST"
+            .header.modal-header
+              h4.modal-title Are you sure?
+            .body.modal-body
+              .form-group
+                .header.title
+                  h4.modal-title Delete Network - #{@network.network}
+              .form-group
+                .hidden-values
+                  input#network.form-control name="network" type="hidden" value="#{@network.network}"
+              .form-group
+                label.col-sm-3.control-label for="domain" Domain:
+                .col-sm-6
+                  input#domain.form-control name="domain" type="text" value="#{@network.domain}" readonly="true"
+              .form-group
+                label.col-sm-3.control-label for="netmask" Netmask:
+                .col-sm-6
+                  input#netmask.form-control name="netmask" type="text" value="#{@network.netmask}" readonly="true"
+              .form-group
+                label.col-sm-3.control-label for="gateway" Gateway:
+                .col-sm-6
+                  input#gateway.form-control name="gateway" type="text" value="#{@network.gateway}" readonly="true"
+              .form-group
+                label.col-sm-3.control-label for="nameservers" Nameservers:
+                .col-sm-6
+                  abbr title="Must be comma delimited with no spaces."
+                    input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}" readonly="true"
+              .footer.modal-footer
+                .form-group
+                    button.btn.btn-default data-dismiss="modal" Cancel
+                    button.btn.btn-primary type="submit" Delete
+
     .addHostModal#addHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
         .content.modal-content

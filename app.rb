@@ -165,6 +165,12 @@ post '/network/:id/edit' do
   end
 end
 
+post '/network/:id/delete' do
+  puts params
+  delete_network(params['network'].gsub(".", "_"))
+  redirect "/"
+end
+
 post '/network/:id/hosts/new' do
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
   mac_regex = %r{^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$}
