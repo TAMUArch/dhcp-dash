@@ -44,7 +44,10 @@ html
                     = username
                   ul.dropdown-menu
                     li
+                      a.addNetwork data-toggle="modal" Add Network
+                    li
                       a href="/logout" Logout
+
     .container
       = if @error then
         .alert.alert-error.alert-warning

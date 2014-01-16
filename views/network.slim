@@ -2,11 +2,12 @@ head
   h4 = @network.network
 body
   .network
-    .link.row
-      .col-xs-12.col-sm-12
-        abbr title="Edit Network"
-          button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
-            span.glyphicon.glyphicon-pencil
+    -if not defined? @restricted_view
+      .link.row
+        .col-xs-12.col-sm-12
+          abbr title="Edit Network"
+            button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal"
+              span.glyphicon.glyphicon-pencil
     .domain.row
       .col-xs-4.col-sm-2
         .lbl Domain:
@@ -34,22 +35,56 @@ body
           th Hostname
           th IP
           th MAC
-          th
-            abbr title="Add Host"
-              button.btn.btn-default.addHost style="float: right;" data-toggle="modal"
-                span.glyphicon.glyphicon-plus
+          - if not defined? @limited_view
+            th
+              abbr title="Add Host"
+                button.btn.btn-default.addHost style="float: right;" data-toggle="modal"
+                  span.glyphicon.glyphicon-plus
       tbody
         - @network.hosts.each do |h,v|
           tr
             td = h
             td = v['ip']
             td = v['mac']
-            td
-              button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
-                span.glyphicon.glyphicon-pencil
-              button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
-                span.glyphicon.glyphicon-trash
+            - if not defined? @limited_view
+              td
+                button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                  span.glyphicon.glyphicon-pencil
+                button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                  span.glyphicon.glyphicon-trash
   .modals
+    .addNetworkModal#addNetworkModal.modal.fade role="dialog"
+      .dialog.modal-dialog
+        .content.modal-content
+          form.form-horizontal role="form" action="/networks/new" method="POST"
+            .header.modal-header
+              h4.modal-title Add Network
+            .body.modal-body
+              .form-group
+                label.col-sm-3.control-label for="domain" Domain:
+                .col-sm-6
+                  input#domain.form-control name="domain" type="text"
+              .form-group
+                label.col-sm-3.control-label for="network" Network:
+                .col-sm-6
+                  input#network.form-control name="network" type="text"
+              .form-group
+                label.col-sm-3.control-label for="netmask" Netmask:
+                .col-sm-6
+                  input#netmask.form-control name="netmask" type="text"
+              .form-group
+                label.col-sm-3.control-label for="gateway" Gateway:
+                .col-sm-6
+                  input#gateway.form-control name="gateway" type="text"
+              .form-group
+                label.col-sm-3.control-label for="nameservers" Nameservers:
+                .col-sm-6
+                  abbr title="Must be comma delimited with no spaces."
+                    input#nameservers.form-control name="nameservers" type="text"
+              .footer.modal-footer
+                .form-group
+                    button.btn.btn-default data-dismiss="modal" Cancel
+                    button.btn.btn-primary type="submit" Save
     .editNetworkModal#editNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog
         .content.modal-content
