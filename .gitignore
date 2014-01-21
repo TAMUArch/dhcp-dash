@@ -16,6 +16,7 @@ test/version_tmp
 tmp
 config.json
 dash_config.rb
+unicorn.log
 
 # YARD artifacts
 .yardoc
