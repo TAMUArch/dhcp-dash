@@ -59,23 +59,14 @@ post '/auth/:provider/callback' do
    when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'admin'
-      puts env['omniauth.auth'].info.name
-      puts session[:identity]
-      puts session[:group]
       redirect '/'
     when membership.include?("CN=ITS General,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'user'
-      puts env['omniauth.auth'].info.name
-      puts session[:identity]
-      puts session[:group]
       redirect '/'
     when membership.include?("CN=ITS,OU=Groups,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'spectator'
-      puts env['omniauth.auth'].info.name
-      puts session[:identity]
-      puts session[:group]
       redirect '/'
     else
       session.delete(:identity)
@@ -117,11 +108,12 @@ end
 post '/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
   ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  netmask_regex = %r{^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$}
   nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
   form do
     field :domain, :present => true, :regexp => domain_regex
     field :network, :present => true, :regexp => ip_regex
-    field :netmask, :present => true, :regexp => ip_regex
+    field :netmask, :present => true, :regexp => netmask_regex
     field :gateway, :present => true, :regexp => ip_regex
     field :nameservers, :present => true, :regexp => nameserver_regex
   end
@@ -166,7 +158,6 @@ post '/network/:id/edit' do
 end
 
 post '/network/:id/delete' do
-  puts params
   delete_network(params['network'].gsub(".", "_"))
   redirect "/"
 end
@@ -250,7 +241,6 @@ post '/network/:id/hosts/edit' do
 end
 
 post '/network/:id/hosts/delete' do
-  puts params
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
