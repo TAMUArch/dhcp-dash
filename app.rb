@@ -56,11 +56,11 @@ end
 post '/auth/:provider/callback' do
   membership = env['omniauth.auth'].extra.raw_info.memberOf
   case
-   when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+   when membership.include?("CN=ITS Admins,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'admin'
       redirect '/'
-    when membership.include?("CN=ITS General,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+    when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'user'
       redirect '/'
