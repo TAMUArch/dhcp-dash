@@ -52,9 +52,9 @@ body
             td = v['mac']
             - if not defined? @limited_view
               td
-                button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}" data-target="#editHostModal"
+                button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
                   span.glyphicon.glyphicon-pencil
-                button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}" data-target="#deleteHostModal"
+                button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
                   span.glyphicon.glyphicon-trash
   .modals
     .addNetworkModal#addNetworkModal.modal.fade role="dialog"
@@ -66,23 +66,26 @@ body
             .body.modal-body
               .form-group
                 label.col-sm-3.control-label for="domain" Domain:
-                .col-sm-6
+                .col-sm-8
                   input#domain.form-control name="domain" type="text"
+                  javascript:
+                    var domain = new LiveValidation('domain', { wait: 500 } );
+                    domain.add( Validate.Format, { pattern: /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i } );
               .form-group
                 label.col-sm-3.control-label for="network" Network:
-                .col-sm-6
+                .col-sm-8
                   input#network.form-control name="network" type="text"
               .form-group
                 label.col-sm-3.control-label for="netmask" Netmask:
-                .col-sm-6
+                .col-sm-8
                   input#netmask.form-control name="netmask" type="text"
               .form-group
                 label.col-sm-3.control-label for="gateway" Gateway:
-                .col-sm-6
+                .col-sm-8
                   input#gateway.form-control name="gateway" type="text"
               .form-group
                 label.col-sm-3.control-label for="nameservers" Nameservers:
-                .col-sm-6
+                .col-sm-8
                   abbr title="Must be comma delimited with no spaces."
                     input#nameservers.form-control name="nameservers" type="text"
               .footer.modal-footer

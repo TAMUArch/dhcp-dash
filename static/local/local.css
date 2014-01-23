@@ -9,6 +9,15 @@
   text-align: left;
 }
 
+.modals .body.modal-body .form-group {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modals .modal-dialog {
+  width: 500px;
+}
+
 /* Homepage */
 .networks .network_list .network a {
   font-size: larger;
@@ -84,6 +93,7 @@ table.dataTable thead .sorting_desc { background: url('../vendor/DataTables/medi
 
 table.dataTable thead .sorting_asc_disabled { background: url('../vendor/DataTables/media/images/sort_asc_disabled.png') no-repeat center right; }
 table.dataTable thead .sorting_desc_disabled { background: url('../vendor/DataTables/media/images/sort_desc_disabled.png') no-repeat center right;
+}
 
 table.dataTable th:active {
   outline: none;
@@ -99,7 +109,7 @@ div.dataTables_scrollHead table {
 div.dataTables_scrollHead table thead tr:last-child th:first-child,
 div.dataTables_scrollHead table thead tr:last-child td:first-child {
   border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-bottom-right-radius: 20px !important;
 }
 
 div.dataTables_scrollBody table {
@@ -266,3 +276,26 @@ ul.tabs li:hover {
   background-color: #f4f6fa;
 }
 
+/*
+ * LiveValidation
+ */
+
+.LV_validation_message {
+  display: none;
+}
+
+.LV_valid_field,
+input.LV_valid_field:hover,
+input.LV_valid_field:active,
+textarea.LV_valid_field:hover,
+textarea.LV_valid_field:active {
+  border: 1px solid #00CC00;
+}
+
+.LV_invalid_field,
+input.LV_invalid_field:hover,
+input.LV_invalid_field:active,
+textarea.LV_invalid_field:hover,
+textarea.LV_invalid_field:active {
+  border: 1px solid #CC0000;
+}

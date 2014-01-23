@@ -56,11 +56,11 @@ end
 post '/auth/:provider/callback' do
   membership = env['omniauth.auth'].extra.raw_info.memberOf
   case
-   when membership.include?("CN=ITS Admins,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+    when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'admin'
       redirect '/'
-    when membership.include?("CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
+    when membership.include?("CN=ITS General,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU")
       session[:identity] = env['omniauth.auth'].info.name
       session[:group] = 'user'
       redirect '/'
@@ -107,7 +107,7 @@ end
 
 post '/networks/new' do
   domain_regex = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$}
-  ip_regex = %r{\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b}
+  ip_regex = %r{^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$}
   netmask_regex = %r{^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$}
   nameserver_regex = %r{^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)*+$}
   form do

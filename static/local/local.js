@@ -147,21 +147,6 @@ $.extend( true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
 
 /* Modals */
 $(document).ready(function(){
-  $(".addNetwork").click(function(){
-    $('#addNetworkModal').modal('show');
-  });
-});
-$(document).ready(function(){
-  $(".editNetwork").click(function(){
-    $('#editNetworkModal').modal('show');
-  });
-});
-$(document).ready(function(){
-  $(".addHost").click(function(){
-    $('#addHostModal').modal('show');
-  });
-});
-$(document).ready(function(){
   $(".editHost").click(function(){
     $("#hostnameEdit").val($(this).data('hostname'));
     $("#ipEdit").val($(this).data('ip'));
