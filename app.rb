@@ -12,6 +12,7 @@ include DHCPDash
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
   enable :sessions
+  Slim::Engine.set_default_options pretty: true, sort_attrs: false
 end
 
 helpers do
