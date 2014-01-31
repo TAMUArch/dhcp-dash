@@ -165,13 +165,15 @@ $(document).ready(function(){
   });
 });
 
-$(document).ready(function () {
-  $(":input").keyup(function () {
-    var validForm = true;
-      if ($(":input").hasClass('LV_invalid_field')) {
-        $("#submit").attr("disabled, disabled");
-      } else {
-        $("#submit").removeAttr("disabled");
-      }
+/*
+$(document).ready(function(){
+  $(":input").change(function(){
+    if ($(":text").hasClass('LV_invalid_field')){
+      $(":submit").attr("disabled, disabled");
+    } else{
+      $(":submit").removeAttr("disabled");
+    }
   });
 });
+*/
+

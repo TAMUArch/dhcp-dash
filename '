@@ -119,30 +119,30 @@ body
                 .col-sm-6
                   input#domain.form-control name="domain" type="text" value="#{@network.domain}"
                   javascript:
-                    var domainEdit = new LiveValidation('domain');
-                    domainEdit.add( Validate.Format, { pattern: /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i } );
+                    var domain = new LiveValidation('domain');
+                    domain.add( Validate.Format, { pattern: /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i } );
               .form-group
                 label.col-sm-3.control-label for="netmask" Netmask:
                 .col-sm-6
                   input#netmask.form-control name="netmask" type="text" value="#{@network.netmask}"
                   javascript:
-                    var netmaskEdit = new LiveValidation('netmask');
-                    netmaskEdit.add( Validate.Format, { pattern: /^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/ } );
+                    var netmask = new LiveValidation('netmask');
+                    netmask.add( Validate.Format, { pattern: /^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/ } );
               .form-group
                 label.col-sm-3.control-label for="gateway" Gateway:
                 .col-sm-6
                   input#gateway.form-control name="gateway" type="text" value="#{@network.gateway}"
                   javascript:
-                    var gatewayEdit = new LiveValidation('gateway');
-                    gatewayEdit.add( Validate.Format, { pattern: /^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$/ } );
+                    var gateway = new LiveValidation('gateway');
+                    gateway.add( Validate.Format, { pattern: /^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$/ } );
               .form-group
                 label.col-sm-3.control-label for="nameservers" Nameservers:
                 .col-sm-6
                   abbr title="Must be comma delimited with no spaces."
                     input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
                     javascript:
-                      var nameserversEdit = new LiveValidation('nameservers');
-                      nameserversEdit.add( Validate.Format, { pattern: /^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)+$/ } );
+                      var nameservers = new LiveValidation('nameservers');
+                      nameservers.add( Validate.Format, { pattern: /^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)+$/ } );
               .footer.modal-footer
                 .form-group
                     button.btn.btn-default data-dismiss="modal" Cancel
@@ -206,7 +206,7 @@ body
                 .col-sm-6
                   input#macAdd.form-control name="mac" type="text"
                   javascript:
-                    var macAdd = new LiveValidation('macAdd');
+                    var macAdd = LiveValidation('macAdd');
                     macAdd.add( Validate.Format, { pattern: /^(?:[[:xdigit:]]{2}([:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$/ } );
               .form-group
                 label.col-sm-3.control-label for="networkAdd" Network:
