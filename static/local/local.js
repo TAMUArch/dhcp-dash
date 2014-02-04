@@ -164,16 +164,3 @@ $(document).ready(function(){
     $('#deleteHostModal').modal('show');
   });
 });
-
-/*
-$(document).ready(function(){
-  $(":input").change(function(){
-    if ($(":text").hasClass('LV_invalid_field')){
-      $(":submit").attr("disabled, disabled");
-    } else{
-      $(":submit").removeAttr("disabled");
-    }
-  });
-});
-*/
-

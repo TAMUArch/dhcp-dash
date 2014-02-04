@@ -19,38 +19,23 @@ body
                 label.col-sm-3.control-label for="network" Network:
                 .col-sm-8
                   input#network.form-control name="network" type="text"
-                  javascript:
-                    var network = new LiveValidation('network');
-                    network.add(Validate.Format, { pattern: /^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$/ } );
               .form-group
                 label.col-sm-3.control-label for="domain" Domain:
                 .col-sm-8
                   input#domain.form-control name="domain" type="text"
-                  javascript:
-                    var domain = new LiveValidation('domain');
-                    domain.add(Validate.Format, { pattern: /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i } );
               .form-group
                 label.col-sm-3.control-label for="netmask" Netmask:
                 .col-sm-8
                   input#netmask.form-control name="netmask" type="text"
-                  javascript:
-                    var netmask = new LiveValidation('netmask');
-                    netmask.add(Validate.Format, { pattern: /^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/ } );
               .form-group
                 label.col-sm-3.control-label for="gateway" Gateway:
                 .col-sm-8
                   input#gateway.form-control name="gateway" type="text"
-                  javascript:
-                    var gateway = new LiveValidation('gateway');
-                    gateway.add(Validate.Format, { pattern: /^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$/ } );
               .form-group
                 label.col-sm-3.control-label for="nameservers" Nameservers:
                 .col-sm-8
                   abbr title="Must be comma delimited with no spaces."
                     input#nameservers.form-control name="nameservers" type="text"
-                    javascript:
-                      var nameservers = new LiveValidation('nameservers');
-                      nameservers.add(Validate.Format, { pattern: /^(((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?),?)+$/ } );
             .footer.modal-footer
               .form-group
                   button.btn.btn-default data-dismiss="modal" Cancel
