@@ -4,6 +4,7 @@ require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
+require 'pony'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -193,6 +194,7 @@ post '/network/:id/hosts/new' do
       params['ip'],
       params['mac'])
     save_network(net)
+    Pony.mail(:to => email, :subject => 'Host Added', :body => "Added Host: #{params['hostname']}", :via => :sendmail)
     redirect "/network/#{params['network']}"
   end
 end
@@ -245,5 +247,6 @@ post '/network/:id/hosts/delete' do
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
+  Pony.mail(:to => email, :subject => 'Host Deleted', :body => "Deleted Host: #{params['hostname']}", :via => :sendmail)
   redirect "/network/#{params['id']}"
 end
