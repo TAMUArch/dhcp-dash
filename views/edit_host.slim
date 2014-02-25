@@ -1,0 +1,25 @@
+.error
+  - if form.failed?
+    h4 color="red" Found invalid input, check your input and try again.
+form.form-horizontal role="form" action="/network/#{@network}/hosts/#{@hostname}/edit" method="POST"
+  h3.host-form-header Edit Host
+  .form-group
+    label.col-sm-2.control-label for="hostname" Hostname:
+    .col-sm-4
+      input#hostname.form-control name="hostname" type="text" value="#{@hostname}" readonly="true"
+  .form-group
+    label.col-sm-2.control-label for="ip" IP:
+    .col-sm-4
+      input#ip.form-control name="ip" type="text" value="#{@host['ip']}"
+  .form-group
+    label.col-sm-2.control-label for="mac" MAC:
+    .col-sm-4
+      input#mac.form-control name="mac" type="text" value="#{@host['mac']}"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      button.btn.btn-default type="submit" Save
+  .form-group
+    .hidden-values
+      input#network name="network" type="hidden" value="#{@network}"
+      input#current_ip name="current_ip" type="hidden" value="#{@host['ip']}"
+      input#current_mac name="current_mac" type="hidden" value="#{@host['mac']}"

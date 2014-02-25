@@ -10,7 +10,7 @@ module DHCPDash
 
       define_method name do |*values|
         value = values.first
-        value ? self.send("#{name}=", value) : instance_variable_get("@#{name}")
+        value ? send("#{name}=", value) : instance_variable_get("@#{name}")
       end
     end
   end
@@ -24,7 +24,7 @@ module DHCPDash
   end
 
   def save_network(network)
-    File.open("./networks/#{network.id}.json", "w") do |f|
+    File.open("./networks/#{network.id}.json", 'w') do |f|
       f.puts(JSON.pretty_generate(network.to_hash))
     end
   end

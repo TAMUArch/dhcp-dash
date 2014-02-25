@@ -17,8 +17,8 @@ module DHCPDash
     def add_host(hostname, ip, mac)
       unless hostname_exists?(hostname)
         @hosts[hostname] = {
-          "ip" => ip,
-          "mac" => mac
+          'ip' => ip,
+          'mac' => mac
         }
       end
     end
@@ -29,8 +29,8 @@ module DHCPDash
 
     def edit_host(hostname, ip, mac)
       @hosts[hostname] = {
-        "ip" => ip,
-        "mac" => mac
+        'ip' => ip,
+        'mac' => mac
       }
     end
 
@@ -40,18 +40,18 @@ module DHCPDash
 
     def to_hash
       {
-        "id" => id,
-        "domain" => @domain,
-        "network" => @network,
-        "netmask" => @netmask,
-        "gateway" => @gateway,
-        "nameservers" => @nameservers,
-        "hosts" => @hosts
+        'id' => id,
+        'domain' => @domain,
+        'network' => @network,
+        'netmask' => @netmask,
+        'gateway' => @gateway,
+        'nameservers' => @nameservers,
+        'hosts' => @hosts
       }
     end
 
     def hostname_exists?(hostname)
-      @hosts.has_key?(hostname)
+      @hosts.key?(hostname)
     end
 
     def host_ip_exists?(ip)
@@ -60,7 +60,7 @@ module DHCPDash
           return true
         end
       end
-      return false
+      false
     end
 
     def host_mac_exists?(mac)
@@ -69,7 +69,7 @@ module DHCPDash
           return true
         end
       end
-      return false
+      false
     end
   end
 end

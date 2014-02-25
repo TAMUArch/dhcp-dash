@@ -3,7 +3,7 @@ include DHCPDash
 
 describe DHCPDash do
 
-  describe "#return_network" do
+  describe '#return_network' do
     return_network('192.168.0.1').class.should == Network
   end
 end

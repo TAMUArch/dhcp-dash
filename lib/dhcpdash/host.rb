@@ -10,9 +10,9 @@ module DHCPDash
 
     def to_hash
       {
-        "hostname" => @hostname,
-        "ip" => @ip,
-        "mac" => @mac
+        'hostname' => @hostname,
+        'ip' => @ip,
+        'mac' => @mac
       }
     end
   end
