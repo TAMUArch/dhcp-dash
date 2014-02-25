@@ -1,43 +1,30 @@
 .error
   - if form.failed?
-    h4 color="red" Found invalid input, check your input and try again.
-.form
+    h4 Found invalid input, check your input and try again.
+.input.form
   form.form-horizontal role="form" action="/network/#{@network.network}/edit" method="POST"
     h4 Edit #{@network.network}
     .form-group
       .hidden_value
         input#network.form-control name="network" type="hidden" value="#{@network.network}"
     .form-group
-      label.col-sm-2.control-label for="domain" Domain:
+      label.col-sm-1.control-label for="domain" Domain:
       .col-sm-4
         input#domain.form-control name="domain" type="text" value="#{@network.domain}"
     .form-group
-      label.col-sm-2.control-label for="netmask" Netmask:
+      label.col-sm-1.control-label for="netmask" Netmask:
       .col-sm-4
         input#netmask.form-control name="netmask" type="text" value="#{@network.netmask}"
     .form-group
-      label.col-sm-2.control-label for="gateway" Gateway:
+      label.col-sm-1.control-label for="gateway" Gateway:
       .col-sm-4
         input#gateway.form-control name="gateway" type="text" value="#{@network.gateway}"
     .form-group
-      label.col-sm-2.control-label for="nameservers" Nameservers:
+      label.col-sm-1.control-label for="nameservers" Nameservers:
       .col-sm-4
         abbr title="Must be comma delimited with no spaces."
           input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
     .form-group
-      .col-sm-offset-2.col-sm-10
+      .col-sm-offset-1.col-sm-11
         button.btn.btn-default type="submit" Save
-.table
-  table#hosts.table.table-striped
-    thead
-      tr
-        th Hostname
-        th IP
-        th MAC
-    tbody
-      - @network.hosts.each do |h,v|
-        tr
-          td = h
-          td = v['ip']
-          td = v['mac']
 

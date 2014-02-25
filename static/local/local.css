@@ -18,6 +18,24 @@
   width: 500px;
 }
 
+/* Forms */
+.error {
+  color: red;
+  padding-bottom: 10px;
+}
+
+.input .form-group .control-label {
+  text-align: left;
+}
+
+.input .form-group .col-sm-4 {
+  padding-left: 25px;
+}
+
+.input .form-group a {
+  padding-right: 10px;
+}
+
 /* Homepage */
 .networks .network_list .network a {
   font-size: larger;
