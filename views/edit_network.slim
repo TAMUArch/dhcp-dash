@@ -25,6 +25,8 @@
         abbr title="Must be comma delimited with no spaces."
           input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
     .form-group
-      .col-sm-offset-1.col-sm-11
-        button.btn.btn-default type="submit" Save
+      .col-sm-5
+        .buttons
+          a.btn.btn-default href="/network/#{@network.network}" Cancel
+          button.btn.btn-primary type="submit" Save
 
