@@ -12,8 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "dhcp-server" do |srv|
     srv.vm.box = "ubuntu"
 
-    srv.vm.network "private_network", ip: "10.10.10.2",
-      virtualbox__intnet: true
+    #srv.vm.network "private_network", ip: "10.10.10.2"
 
     srv.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box"
     srv.omnibus.chef_version = :latest
@@ -32,8 +31,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "range" => "10.10.10.5 10.10.10.254",
             "mask" => "255.255.255.0",
             "network" => "10.10.10.0",
-            "options" => "",
-            "failover" => "failover-peer",
+            #"options" => "",
+            #"failover" => "failover-peer",
             "routers" => "10.10.10.4"
           }
         }
