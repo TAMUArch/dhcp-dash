@@ -37,6 +37,13 @@ end
       redirect '/auth/ldap'
     end
   end
+
+  def email (subject, body)
+    mail = ['example@example.com', 'another@another.com']
+    mail.each do |address|
+      Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
+    end
+  end
 end
 
 get '/' do
@@ -194,7 +201,7 @@ post '/network/:id/hosts/new' do
       params['ip'],
       params['mac'])
     save_network(net)
-    Pony.mail(:to => email, :subject => 'Host Added', :body => "Added Host: #{params['hostname']}", :via => :sendmail)
+    email('Added Host', params['hostname'])
     redirect "/network/#{params['network']}"
   end
 end
@@ -247,6 +254,6 @@ post '/network/:id/hosts/delete' do
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
-  Pony.mail(:to => email, :subject => 'Host Deleted', :body => "Deleted Host: #{params['hostname']}", :via => :sendmail)
+  email('Deleted Host', params['hostname'])
   redirect "/network/#{params['id']}"
 end
