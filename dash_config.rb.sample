@@ -1,16 +1,21 @@
 DHCPDash.config do
+
+  def addresses
+    emails = ['example@example.com', 'another@example.com']
+  end
+
   parameter :authorized_groups
 
-  ## Change to match your ldap environment
-  use OmniAuth::Strategies::LDAP,
-      host: '192.168.1.4',
-      port: 389,
-      method: :plain,
-      base: 'ou=Users, dc=example, dc=com',
-      uid: 'sAMAccountName',
-      bind_dn: 'bind_dn',
-      password: 'bind_pw'
+    ## Change to match your ldap environment
+    use OmniAuth::Strategies::LDAP,
+        host: '192.168.1.4',
+        port: 389,
+        method: :plain,
+        base: 'ou=Users, dc=example, dc=com',
+        uid: 'sAMAccountName',
+        bind_dn: 'bind_dn',
+        password: 'bind_pw'
 
-  ## ldap groups allowed to access this site
-  authorized_groups = ['dhcp_dash']
+    ## ldap groups allowed to access this site
+    authorized_groups = ['dhcp_dash']
 end

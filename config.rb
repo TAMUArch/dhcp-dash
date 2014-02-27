@@ -6,5 +6,5 @@ module ConfigStuffs
       base: 'ou=People, dc=arch, dc=tamu, dc=edu',
       uid: 'sAMAccountName',
       bind_dn: 'cn= vblessing, ou=Temporary, ou=Staff, ou=Employees, ou=People, dc=arch, dc=tamu, edc=edu',
-      password: '',
+      password: ''
 end
