@@ -22,3 +22,5 @@ unicorn.log
 .yardoc
 _yardoc
 doc/
+.kitchen/
+.kitchen.local.yml
