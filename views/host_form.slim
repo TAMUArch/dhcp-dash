@@ -3,7 +3,7 @@
     h4 Found invalid input, check tour input and try again.
 .input.form
   form.form-horizontal role="form" action="/network/#{@network}/hosts/new" method="POST"
-    h3 Add new Host
+    h4.form-header Add new Host
     .form-group
       label.col-sm-1.control-label for="hostname" Hostname:
       .col-sm-4
@@ -21,5 +21,7 @@
       .col-sm-4
         input#network.form-control name="network" type="text" value="#{@network}" readonly="true"
     .form-group
-      .col-sm-offset-2.col-sm-10
-        button.btn.btn-default type="submit" Save
+      .col-sm-5
+        .buttons
+          a.btn.btn-default href="/network/#{@network}" Cancel
+          button.btn.btn-primary type="submit" Save
