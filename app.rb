@@ -39,7 +39,7 @@ end
   end
 
   def email (subject, body)
-    mail = ['example@example.com', 'another@another.com']
+    mail = ['vblessing@arch.tamu.edu']
     mail.each do |address|
       Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
