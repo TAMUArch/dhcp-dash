@@ -2,8 +2,8 @@
   - if form.failed?
     h4 Found invalid input, check your input and try again.
 .input.form
-  form.form-horizontal role="form" action="/network/#{@network}/hosts/#{@hostname}/edit" method="POST"
-    h3.host-form-header Edit Host
+  form.form-horizontal role="form" action="/network/#{@network}/hosts/edit" method="POST"
+    h4.form-header Edit Host
     .form-group
       label.col-sm-1.control-label for="hostname" Hostname:
       .col-sm-4
@@ -18,10 +18,10 @@
         input#mac.form-control name="mac" type="text" value="#{@host['mac']}"
     .form-group
       .col-sm-5
-        a.btn.btn-default href="/network/#{@network}" Cancel
-        button.btn.btn-primary type="submit" Save
-    .form-group
-      .hidden-values
-        input#network name="network" type="hidden" value="#{@network}"
-        input#current_ip name="current_ip" type="hidden" value="#{@host['ip']}"
-        input#current_mac name="current_mac" type="hidden" value="#{@host['mac']}"
+        .buttons
+          a.btn.btn-default href="/network/#{@network}" Cancel
+          button.btn.btn-primary type="submit" Save
+    .hidden-values
+      input#network name="network" type="hidden" value="#{@network}"
+      input#current_ip name="current_ip" type="hidden" value="#{@host['ip']}"
+      input#current_mac name="current_mac" type="hidden" value="#{@host['mac']}"
