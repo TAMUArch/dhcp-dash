@@ -4,6 +4,7 @@ require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
+require 'pony'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -34,6 +35,13 @@ end
     unless session[:identity]
       session[:previous_url] = request.path
       redirect '/auth/ldap'
+    end
+  end
+
+  def email (subject, body)
+    mail = ['example@example.com', 'another@another.com']
+    mail.each do |address|
+      Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
   end
 end
@@ -197,6 +205,7 @@ post '/network/:id/hosts/new' do
       params['ip'],
       params['mac'])
     save_network(net)
+    email('Added Host', params['hostname'])
     redirect "/network/#{params['network']}"
   end
 end
@@ -251,5 +260,6 @@ post '/network/:id/hosts/delete' do
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
+  email('Deleted Host', params['hostname'])
   redirect "/network/#{params['id']}"
 end
