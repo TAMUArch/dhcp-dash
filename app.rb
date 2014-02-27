@@ -4,6 +4,7 @@ require 'sinatra/formkeeper'
 require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
+require 'pony'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -34,6 +35,13 @@ end
     unless session[:identity]
       session[:previous_url] = request.path
       redirect '/auth/ldap'
+    end
+  end
+
+  def email (subject, body)
+    mail = DHCPDash.addresses
+    mail.each do |address|
+      Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
   end
 end
@@ -120,7 +128,7 @@ post '/networks/new' do
   end
 
   if form.failed?
-    output = slim :network_form
+    output = slim :networks_form
     fill_in_form(output)
   else
     net = return_network(params['network'])
@@ -180,14 +188,10 @@ post '/network/:id/hosts/new' do
   host_exists = exists_array.any?
 
   if form.failed?
-    net = return_network(params['network'])
-    @network = net.network
-    output = slim :host_form
+    output = slim :hosts_form
     fill_in_form(output)
 
   elsif host_exists
-    net = return_network(params['network'])
-    @network = net.network
     output = slim :host_exists
     fill_in_form(output)
 
@@ -197,6 +201,7 @@ post '/network/:id/hosts/new' do
       params['ip'],
       params['mac'])
     save_network(net)
+    email('Added Host', params['hostname'])
     redirect "/network/#{params['network']}"
   end
 end
@@ -232,8 +237,6 @@ post '/network/:id/hosts/edit' do
     fill_in_form(output)
 
   elsif host_exists
-    net = return_network(params['network'])
-    @network = net.network
     output = slim :host_exists
     fill_in_form(output)
 
@@ -251,5 +254,6 @@ post '/network/:id/hosts/delete' do
   net = return_network(params['id'])
   net.delete_host(params['hostname'])
   save_network(net)
+  email('Deleted Host', params['hostname'])
   redirect "/network/#{params['id']}"
 end
