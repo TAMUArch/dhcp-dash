@@ -3,10 +3,7 @@
     h4 Found invalid input, check your input and try again.
 .input.form
   form.form-horizontal role="form" action="/network/#{@network.network}/edit" method="POST"
-    h4 Edit #{@network.network}
-    .form-group
-      .hidden_value
-        input#network.form-control name="network" type="hidden" value="#{@network.network}"
+    h4.form-header Edit #{@network.network}
     .form-group
       label.col-sm-1.control-label for="domain" Domain:
       .col-sm-4
@@ -29,4 +26,6 @@
         .buttons
           a.btn.btn-default href="/network/#{@network.network}" Cancel
           button.btn.btn-primary type="submit" Save
+  .hidden_values
+    input#network.form-control name="network" type="hidden" value="#{@network.network}"
 
