@@ -87,7 +87,7 @@ body
                     input#nameservers.form-control name="nameservers" type="text"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Save
     .editNetworkModal#editNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog
@@ -118,7 +118,7 @@ body
                     input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Save
     .deleteNetworkModal#deleteNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog
@@ -150,7 +150,7 @@ body
                     input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}" readonly="true"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Delete
 
     .addHostModal#addHostModal.modal.fade role="dialog"
@@ -178,7 +178,7 @@ body
                   input#networkAdd.form-control name="network" type="text" value="#{@network.network}" readonly="true"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Save
     .editHostModal#editHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
@@ -206,7 +206,7 @@ body
                   input#current_mac type="hidden" name="current_mac"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Save
     .deleteHostModal#deleteHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
@@ -232,5 +232,5 @@ body
                   input#networkDelete name="network" type="hidden" value="#{@network.network}"
               .footer.modal-footer
                 .form-group
-                    button.btn.btn-default data-dismiss="modal" Cancel
+                    a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Delete

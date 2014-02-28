@@ -128,7 +128,7 @@ post '/networks/new' do
   end
 
   if form.failed?
-    output = slim :networks_form
+    output = slim :network_form
     fill_in_form(output)
   else
     net = return_network(params['network'])
@@ -188,10 +188,14 @@ post '/network/:id/hosts/new' do
   host_exists = exists_array.any?
 
   if form.failed?
-    output = slim :hosts_form
+    net = return_network(params['network'])
+    @network = net.network
+    output = slim :host_form
     fill_in_form(output)
 
   elsif host_exists
+    net = return_network(params['network'])
+    @network = net.network
     output = slim :host_exists
     fill_in_form(output)
 
@@ -237,6 +241,8 @@ post '/network/:id/hosts/edit' do
     fill_in_form(output)
 
   elsif host_exists
+    net = return_network(params['network'])
+    @network = net.network
     output = slim :host_exists
     fill_in_form(output)
 
