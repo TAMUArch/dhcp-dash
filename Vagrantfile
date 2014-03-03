@@ -17,6 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     srv.vm.host_name = "dhcp-server"
     srv.vm.network "private_network", ip: "10.10.10.2"
 
+    srv.vm.network :forwarded_port, guest: 4567, host: 4567
+    srv.vm.synced_folder ".", "/opt/dhcp-dash"
+
     srv.omnibus.chef_version = :latest
     srv.vm.provision "chef_solo" do |chef|
       chef.add_recipe "dhcp"
