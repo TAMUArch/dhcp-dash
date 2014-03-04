@@ -1,3 +1,7 @@
 .error
   h4 Host already exists
-  h3 color="red" A host with that name, IP, or MAC address has already been addded to this network.
+  h5 A host with that name, IP, or MAC address has already been addded to this network.
+.buttons
+  a.btn.btn-primary href="/network/#{@network}" Go Back
+.hidden-values
+  input#network name="network" type="hidden" value="#{@network}"

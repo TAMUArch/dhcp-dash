@@ -1,0 +1,27 @@
+.error
+  - if form.failed?
+    h4 Found invalid input, check tour input and try again.
+.input.form
+  form.form-horizontal role="form" action="/network/#{@network}/hosts/new" method="POST"
+    h4.form-header Add new Host
+    .form-group
+      label.col-sm-1.control-label for="hostname" Hostname:
+      .col-sm-4
+        input#hostname.form-control name="hostname" type="text"
+    .form-group
+      label.col-sm-1.control-label for="ip" IP:
+      .col-sm-4
+        input#ip.form-control name="ip" type="text"
+    .form-group
+      label.col-sm-1.control-label for="mac" MAC:
+      .col-sm-4
+        input#mac.form-control name="mac" type="text"
+    .form-group
+      label.col-sm-1.control-label for="network" Network:
+      .col-sm-4
+        input#network.form-control name="network" type="text" value="#{@network}" readonly="true"
+    .form-group
+      .col-sm-5
+        .buttons
+          a.btn.btn-default href="/network/#{@network}" Cancel
+          button.btn.btn-primary type="submit" Save
