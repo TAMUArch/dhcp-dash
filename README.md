@@ -8,3 +8,5 @@ Authors
 -------
 
 * Victoria Blessing - vblessing@arch.tamu.edu
+* Ben Alexander - balexander@arch.tamu.edu
+* Charlie Johnson - cjohnson@arch.tamu.edu
