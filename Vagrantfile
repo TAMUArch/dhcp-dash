@@ -11,8 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.berkshelf.enabled = true
 
   config.vm.define "dhcp-server" do |srv|
-    srv.vm.box = "ubuntu"
-    srv.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box"
+    srv.vm.box = "centos"
+    srv.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
 
     srv.vm.host_name = "dhcp-server"
     srv.vm.network "private_network", ip: "10.10.10.2"
@@ -36,23 +36,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "network" => "10.10.10.0",
             "routers" => "10.10.10.1"
           }
+        },
+        "rbenv" => {
+          "group_users" => "vagrant"
         }
       }
     end
   end
-
-  config.vm.define "node1" do |n1|
-    n1.vm.box = "centos"
-    n1.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
-    n1.vm.host_name = "node1"
-    n1.vm.network "private_network", ip: "10.10.10.3"
-  end
-
-  config.vm.define "node2" do |n2|
-    n2.vm.box = "centos"
-    n2.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
-    n2.vm.host_name = "node2"
-    n2.vm.network "private_network", ip: "10.10.10.4"
-  end
-
 end
