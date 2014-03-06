@@ -40,6 +40,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         "rbenv" => {
           "group_users" => "vagrant"
         }
+        "dhcp-dash" => {
+          "environment" => "development"
+        }
       }
     end
   end
