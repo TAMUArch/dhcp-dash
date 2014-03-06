@@ -1,0 +1,51 @@
+Feb 26 14:33:35 vagrant dhcpd: Not configured to listen on any interfaces!
+Feb 26 14:33:35 vagrant dhcpd: Internet Systems Consortium DHCP Server 4.1-ESV-R4
+Feb 26 14:33:35 vagrant dhcpd: Copyright 2004-2011 Internet Systems Consortium.
+Feb 26 14:33:35 vagrant dhcpd: All rights reserved.
+Feb 26 14:33:35 vagrant dhcpd: For info, please visit https://www.isc.org/software/dhcp/
+Feb 26 14:33:35 vagrant dhcpd: Internet Systems Consortium DHCP Server 4.1-ESV-R4
+Feb 26 14:33:35 vagrant dhcpd: Copyright 2004-2011 Internet Systems Consortium.
+Feb 26 14:33:35 vagrant dhcpd: All rights reserved.
+Feb 26 14:33:35 vagrant dhcpd: For info, please visit https://www.isc.org/software/dhcp/
+Feb 26 14:33:35 vagrant dhcpd: Wrote 0 leases to leases file.
+Feb 26 14:33:35 vagrant dhcpd: 
+Feb 26 14:33:35 vagrant dhcpd: No subnet declaration for eth0 (10.0.2.15).
+Feb 26 14:33:35 vagrant dhcpd: ** Ignoring requests on eth0.  If this is not what
+Feb 26 14:33:35 vagrant dhcpd:    you want, please write a subnet declaration
+Feb 26 14:33:35 vagrant dhcpd:    in your dhcpd.conf file for the network segment
+Feb 26 14:33:35 vagrant dhcpd:    to which interface eth0 is attached. **
+Feb 26 14:33:35 vagrant dhcpd: 
+Feb 26 14:33:35 vagrant dhcpd: 
+Feb 26 14:33:35 vagrant dhcpd: Not configured to listen on any interfaces!
+Feb 26 14:33:36 vagrant kernel: [   33.240481] type=1400 audit(1393425216.008:9): apparmor="STATUS" operation="profile_load" name="/usr/sbin/dhcpd" pid=1642 comm="apparmor_parser"
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting numeric value.
+Feb 26 14:33:37 vagrant dhcpd: subnet {
+Feb 26 14:33:37 vagrant dhcpd:         ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting a declaration
+Feb 26 14:33:37 vagrant dhcpd: subnet {} netmask 
+Feb 26 14:33:37 vagrant dhcpd:         ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting a declaration
+Feb 26 14:33:37 vagrant dhcpd: subnet {} netmask {} {
+Feb 26 14:33:37 vagrant dhcpd:                    ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.conf line 24: /etc/dhcp/dhcpd.pools: bad parse.
+Feb 26 14:33:37 vagrant dhcpd: include "/etc/dhcp/dhcpd.pools"
+Feb 26 14:33:37 vagrant dhcpd:          ^
+Feb 26 14:33:37 vagrant dhcpd: Configuration file errors encountered -- exiting
+Feb 26 14:33:37 vagrant dhcpd: Internet Systems Consortium DHCP Server 4.1-ESV-R4
+Feb 26 14:33:37 vagrant dhcpd: Copyright 2004-2011 Internet Systems Consortium.
+Feb 26 14:33:37 vagrant dhcpd: All rights reserved.
+Feb 26 14:33:37 vagrant dhcpd: For info, please visit https://www.isc.org/software/dhcp/
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting numeric value.
+Feb 26 14:33:37 vagrant dhcpd: subnet {
+Feb 26 14:33:37 vagrant dhcpd:         ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting a declaration
+Feb 26 14:33:37 vagrant dhcpd: subnet {} netmask 
+Feb 26 14:33:37 vagrant dhcpd:         ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.pools line 6: expecting a declaration
+Feb 26 14:33:37 vagrant dhcpd: subnet {} netmask {} {
+Feb 26 14:33:37 vagrant dhcpd:                    ^
+Feb 26 14:33:37 vagrant dhcpd: /etc/dhcp/dhcpd.conf line 24: /etc/dhcp/dhcpd.pools: bad parse.
+Feb 26 14:33:37 vagrant dhcpd: include "/etc/dhcp/dhcpd.pools"
+Feb 26 14:33:37 vagrant dhcpd:          ^
+Feb 26 14:33:37 vagrant dhcpd: Configuration file errors encountered -- exiting
+
