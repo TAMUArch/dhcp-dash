@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     srv.omnibus.chef_version = :latest
     srv.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "dhcp"
+      chef.add_recipe "dhcp-dash"
 
       chef.json = {
         "dhcp" => {
