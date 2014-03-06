@@ -1,10 +1,20 @@
 DHCPDash.config do
 
-  def addresses
+  def admin_emails
     emails = ['example@example.com', 'another@example.com']
   end
 
-  parameter :authorized_groups
+  def admin_group
+    path = 'cn=name,ou=group,dc=example,dc=com'
+  end
+
+  def user_group
+    path = 'cn=name,ou=group,dc=example,dc=com'
+  end
+
+  def spectator_group
+    path = 'cn=name,ou=group,dc=example,dc=com'
+  end
 
     ## Change to match your ldap environment
     use OmniAuth::Strategies::LDAP,
@@ -16,6 +26,4 @@ DHCPDash.config do
         bind_dn: 'bind_dn',
         password: 'bind_pw'
 
-    ## ldap groups allowed to access this site
-    authorized_groups = ['dhcp_dash']
 end

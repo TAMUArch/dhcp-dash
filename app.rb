@@ -39,7 +39,7 @@ end
   end
 
   def email (subject, body)
-    mail = DHCPDash.addresses
+    mail = DHCPDash.admin_emails
     mail.each do |address|
       Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
@@ -65,15 +65,15 @@ end
 post '/auth/:provider/callback' do
   membership = env['omniauth.auth'].extra.raw_info.memberOf
   case
-  when membership.include?('CN=ITS Techs,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU')
+  when membership.include?(DHCPDash.admin_group)
     session[:identity] = env['omniauth.auth'].info.name
     session[:group] = 'admin'
     redirect '/'
-  when membership.include?('CN=ITS General,OU=ITS,OU=College,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU')
+  when membership.include?(DHCPDash.user_group)
     session[:identity] = env['omniauth.auth'].info.name
     session[:group] = 'user'
     redirect '/'
-  when membership.include?('CN=ITS,OU=Groups,OU=Roles,DC=ARCH,DC=TAMU,DC=EDU')
+  when membership.include?(DHCPDash.spectator_group)
     session[:identity] = env['omniauth.auth'].info.name
     session[:group] = 'spectator'
     redirect '/'
