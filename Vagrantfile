@@ -50,6 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "node2" do |n2|
     n2.vm.box = "centos"
+    n2.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
     n2.vm.host_name = "node2"
     n2.vm.network "private_network", ip: "10.10.10.4"
   end
