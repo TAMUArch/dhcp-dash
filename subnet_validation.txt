@@ -1,0 +1,8 @@
+Try this for IP Validation based on subnet:
+
+>> net = IPAddr.new("62.0.0.0/8")
+=> #<IPAddr: IPv4:62.0.0.0/255.0.0.0>
+>> net==="62.156.244.13"
+=> true
+
+http://stackoverflow.com/questions/3518365/rails-find-out-if-an-ip-is-within-a-range-of-ips
