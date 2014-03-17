@@ -5,6 +5,8 @@ require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
 require 'pony'
+require 'will_paginate'
+require 'will_paginate/active_record'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
