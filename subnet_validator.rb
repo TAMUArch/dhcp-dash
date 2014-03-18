@@ -1,6 +1,6 @@
 require 'ipaddr'
 
-def sub_validate (subnet, ip)
+def sub_validate
 
   cidr = IPAddr.new(params['netmask']).to_i.to_s(2).count("1").to_s
   subvalid = params['network'] + "/" + cidr
