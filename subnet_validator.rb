@@ -4,6 +4,21 @@ def subvalidate (netmask, ip)
 
   cidr = IPAddr.new(netmask).to_i.to_s(2).count("1").to_s
   subvalid = ip + "/" + cidr
+  subvalid === ip
+end
+
+if subvalidate(params['netmask'], params['network'])
+  puts "hooray"
+else
+  puts "well, shit"
+end
+
+
+# ***********************************************************************************
+def subvalidate (netmask, ip)
+
+  cidr = IPAddr.new(netmask).to_i.to_s(2).count("1").to_s
+  subvalid = ip + "/" + cidr
 
   if subvalid === ip
     puts "your ip is valid based on subnet"
