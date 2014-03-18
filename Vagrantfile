@@ -11,9 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.berkshelf.enabled = true
 
   config.vm.define "dhcp-server" do |srv|
-    srv.vm.box = "centos"
-    srv.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
-
+    srv.vm.box = "ubuntu"
+    srv.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box"
     srv.vm.host_name = "dhcp-server"
     srv.vm.network "private_network", ip: "10.10.10.2"
 
