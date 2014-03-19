@@ -44,6 +44,12 @@ end
       Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
   end
+
+  def subvalidate (netmask, ip)
+    cidr = IPAddr.new(netmask).to_i.to_s(2).count("1").to_s
+    subvalid = ip + "/" + cidr
+    subvalid === ip
+  end
 end
 
 get '/' do
@@ -127,7 +133,7 @@ post '/networks/new' do
     field :nameservers, present: true, regexp: nameserver_regex
   end
 
-  if form.failed?
+  if form.failed? || subvalidate(params['netmask'], params['network']) == false
     output = slim :network_form
     fill_in_form(output)
   else
