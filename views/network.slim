@@ -33,29 +33,31 @@ body
       .col-xs-3.col-sm-2
         .val = @network.nameservers.join(",")
   .hosts
-    table#hosts.table.table-bordered.table-striped
-      thead
-        tr
-          th Hostname
-          th IP
-          th MAC
-          - if not defined? @limited_view
-            th
-              abbr title="Add Host"
-                button.btn.btn-default.addHost style="float: right;" data-toggle="modal" data-target="#addHostModal"
-                  span.glyphicon.glyphicon-plus
-      tbody
-        - @network.hosts.each do |h,v|
+    - will_paginate @hosts, renderer: BootstrapPagination::Sinatra
+
+      table#hosts.table.table-bordered.table-striped
+        thead
           tr
-            td = h
-            td = v['ip']
-            td = v['mac']
+            th Hostname
+            th IP
+            th MAC
             - if not defined? @limited_view
-              td
-                button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
-                  span.glyphicon.glyphicon-pencil
-                button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
-                  span.glyphicon.glyphicon-trash
+              th
+                abbr title="Add Host"
+                  button.btn.btn-default.addHost style="float: right;" data-toggle="modal" data-target="#addHostModal"
+                    span.glyphicon.glyphicon-plus
+        tbody
+          - @hosts.each do |h,v|
+            tr
+              td = h
+              td = v['ip']
+              td = v['mac']
+              - if not defined? @limited_view
+                td
+                  button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                    span.glyphicon.glyphicon-pencil
+                  button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                    span.glyphicon.glyphicon-trash
   .modals
     .addNetworkModal#addNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog

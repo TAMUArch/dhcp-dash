@@ -6,6 +6,7 @@ require 'omniauth-ldap'
 require 'slim'
 require 'pony'
 require 'will_paginate-bootstrap'
+require 'will_paginate/array'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -28,6 +29,10 @@ helpers do
       file.gsub!('.json', '')
       file.gsub!('_', '.')
     end
+  end
+
+  def network
+    @hosts = @network.hosts.paginate(:page => params[:page], :per_page => 10)
   end
 end
 
