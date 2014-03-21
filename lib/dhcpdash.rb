@@ -45,4 +45,9 @@ module DHCPDash
   def delete_network(id)
     File.delete("./networks/#{id}.json")
   end
+
+  def run_chef
+    system('chef-client')
+  end
+
 end
