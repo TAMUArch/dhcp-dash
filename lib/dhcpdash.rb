@@ -47,6 +47,7 @@ module DHCPDash
   end
 
   def run_chef
+    puts "restarting dhcp server"
     system('chef-client')
   end
 
