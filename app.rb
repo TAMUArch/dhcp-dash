@@ -5,6 +5,7 @@ require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
 require 'pony'
+require 'IPAddr'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 
@@ -44,12 +45,13 @@ end
       Pony.mail(:to => address, :subject => subject, :body => body, :via => :sendmail)
     end
   end
-
+=begin
   def subvalidate (netmask, ip)
     cidr = IPAddr.new(netmask).to_i.to_s(2).count("1").to_s
     subvalid = ip + "/" + cidr
     subvalid === ip
   end
+=end
 end
 
 get '/' do
@@ -133,9 +135,14 @@ post '/networks/new' do
     field :nameservers, present: true, regexp: nameserver_regex
   end
 
-  if form.failed? || !subvalidate(params['netmask'], params['network'])
+  if form.failed?
+    output = slim :network_form, layout: :layout_user
+    fill_in_form(output)
+=begin
+  elsif !subvalidate(params['netmask'], params['network'])
     output = slim :network_form
     fill_in_form(output)
+=end
   else
     net = return_network(params['network'])
     net.domain = params['domain']
@@ -193,7 +200,7 @@ post '/network/:id/hosts/new' do
 
   host_exists = exists_array.any?
 
-  if form.failed? || !subvalidate(params['netmask'], params['network'])
+  if form.failed? #|| !subvalidate(params['netmask'], params['network'])
     net = return_network(params['network'])
     @network = net.network
     output = slim :host_form
@@ -238,7 +245,7 @@ post '/network/:id/hosts/edit' do
 
   host_exists = exists_array.any?
 
-  if form.failed? || !subvalidate(params['netmask'], params['network'])
+  if form.failed? #|| !subvalidate(params['netmask'], params['network'])
     net = return_network(params['network'])
     @network = net.network
     @host = net.hosts[params['hostname']]
