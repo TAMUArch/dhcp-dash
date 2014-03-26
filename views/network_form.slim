@@ -1,8 +1,7 @@
 .error
-  - if form.failed?
-    h4 Found invalid input, check your input and try again.
+  h4 Found invalid input, check your input and try again.
 .input.form
-  form.form-horizontal role="form" action="/network/new" method="POST"
+  form.form-horizontal role="form" action="/networks/new" method="POST"
     h4.form-header New Network
     .form-group
       label.col-sm-1.control-label for="network" Network:
@@ -30,4 +29,3 @@
         .buttons
           a.btn.btn-default href="/" Cancel
           button.btn.btn-primary type="submit" Save
-
