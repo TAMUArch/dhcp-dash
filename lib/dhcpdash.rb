@@ -45,4 +45,10 @@ module DHCPDash
   def delete_network(id)
     File.delete("./networks/#{id}.json")
   end
+
+  def run_chef
+    puts "restarting dhcp server"
+    system('chef-client')
+  end
+
 end

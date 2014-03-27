@@ -276,3 +276,16 @@ post '/network/:id/hosts/delete' do
   email('Deleted Host', params['hostname'])
   redirect "/network/#{params['id']}"
 end
+
+post '/refresh' do
+  group = session[:group]
+
+  case group
+  when 'user'
+    run_chef
+  when 'admin'
+    run_chef
+  end
+
+  redirect '/'
+end

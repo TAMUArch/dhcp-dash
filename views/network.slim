@@ -234,3 +234,16 @@ body
                 .form-group
                     a.btn.btn-default data-dismiss="modal" Cancel
                     button.btn.btn-primary type="submit" Delete
+    .refreshServerModal#refreshServerModal.modal.fade role="dialog"
+      .dialog.modal-dialog
+        .content.modal-content
+          form.form-horizontal role="form" action="/refresh" method="POST"
+            .header.modal-header
+              h4.modal-title Refresh Server
+            .body.modal-body
+              p
+                'Are you sure you want to refresh the DHCP server?'
+              .footer.modal-footer
+                .form-group
+                  a.btn.btn-default data-dismiss="modal" No
+                  button.btn.btn-primary type="submit" Yes
