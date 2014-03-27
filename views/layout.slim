@@ -24,11 +24,11 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href="/" DHCP Dashboard
+          a#home_button.navbar-brand href="/" DHCP Dashboard
         .navbar-collapse.collapse
           ul.nav.navbar-nav
             li.dropdown
-              a.dropdown-toggle href="#" data-toggle="dropdown" Networks
+              a#networks_button.dropdown-toggle href="#" data-toggle="dropdown" Networks
               ul.dropdown-menu
                 - networks.each do |network|
                   li
@@ -37,14 +37,14 @@ html
           ul.nav.navbar-right.navbar-nav
             - if session[:identity].nil?
                 li
-                  a href="/login/form" Login
+                  a#login_button href="/login/form" Login
             - if session[:identity]
                 li.dropdown
-                  a.dropdown-toggle href="#" data-toggle="dropdown"
+                  a#user_dropdown.dropdown-toggle href="#" data-toggle="dropdown"
                     = username
                   ul.dropdown-menu
                     li
-                      a.addNetwork data-toggle="modal" data-target="#addNetworkModal" Add Network
+                      a#add_network.addNetwork data-toggle="modal" data-target="#addNetworkModal" Add Network
                     li
                       a href="/logout" Logout
 
