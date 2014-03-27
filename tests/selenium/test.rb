@@ -34,6 +34,7 @@ end
 
 username = ENV['USERNAME']
 password = ENV['PASSWORD']
+
 driver = TestDriver.new(:firefox, "localhost:4567")
 
 driver.load
@@ -74,9 +75,7 @@ driver.input("gateway", :id, "gateway", "192.168.0.9", false)
 driver.input("nameservers", :id, "nameservers", "192.182.33.3", false)
 sleep(1)
 driver.click_button("save_button", :id, "save_button")
-sleep(5)
 
 
 
-driver.quit
-
+#driver.quit
