@@ -122,7 +122,7 @@ get '/network/:id' do
   end
 end
 
-post '/networks/new' do
+post '/network/new' do
   domain_regex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/
   ip_regex = /^\b((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})\b$/
   netmask_regex = /^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/
@@ -166,7 +166,7 @@ post '/network/:id/edit' do
 
   if form.failed?
     @network = return_network(params['network'])
-    output = slim :edit_network
+    output = slim :edit_network, layout: :layout_user
     fill_in_form(output)
   else
     net = return_network(params['network'])
@@ -203,13 +203,13 @@ post '/network/:id/hosts/new' do
   if form.failed? #|| !subvalidate(params['netmask'], params['network'])
     net = return_network(params['network'])
     @network = net.network
-    output = slim :host_form
+    output = slim :host_form, layout: :layout_user
     fill_in_form(output)
 
   elsif host_exists
     net = return_network(params['network'])
     @network = net.network
-    output = slim :host_exists
+    output = slim :host_exists, layout: :layout_user
     fill_in_form(output)
 
   else
@@ -250,13 +250,13 @@ post '/network/:id/hosts/edit' do
     @network = net.network
     @host = net.hosts[params['hostname']]
     @hostname = params['hostname']
-    output = slim :edit_host
+    output = slim :edit_host, layout: :layout_user
     fill_in_form(output)
 
   elsif host_exists
     net = return_network(params['network'])
     @network = net.network
-    output = slim :host_exists
+    output = slim :host_exists, layout: :layout_user
     fill_in_form(output)
 
   else
