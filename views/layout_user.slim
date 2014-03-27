@@ -34,8 +34,6 @@ html
                   li
                     a href="/network/#{network}"
                       = network
-            li.dropdown
-              a href="#" Refresh Server
           ul.nav.navbar-right.navbar-nav
             - if session[:identity].nil?
                 li
@@ -46,7 +44,7 @@ html
                     = username
                   ul.dropdown-menu
                     li
-                      a href="#" Refresh Server
+                      a.refreshServer data-toggle="modal" data-target="#refreshServerModal" Refresh Server
                     li
                       a href="/logout" Logout
     .container
