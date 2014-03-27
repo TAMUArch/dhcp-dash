@@ -5,7 +5,7 @@ require 'omniauth'
 require 'omniauth-ldap'
 require 'slim'
 require 'pony'
-require 'IPAddr'
+require 'ipaddr'
 require_relative 'lib/dhcpdash'
 require_relative 'dash_config'
 

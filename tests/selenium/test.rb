@@ -50,11 +50,6 @@ driver.input("username", :id, "username", username, false)
 driver.input("password", :id, "password", password, false)
 sleep(1)
 driver.click_button("sign_in", :tag_name, "button")
-#need to set submit flag on driver.input ^^^ to false
-#and add check "sigin in" button on ldap authentication page
-#driver.click_button("xxx", :id, "xxx")
-#can't do this currently --- can't locate file which contains ldap authentication code
-#probably just being stupid
 sleep(1)
 driver.putstitle
 sleep(1)
@@ -65,12 +60,21 @@ sleep(1)
 driver.click_button("user_dropdown", :id, "user_dropdown")
 sleep(1)
 driver.click_button("add_network", :id, "add_network")
-
-#driver.click_button("logout", :id, "logout")
-
-#driver.click_button("user_dropdown", :id, "user_dropdown")
-#sleep(5)
-#need to find this file, and give this button a callable id
+sleep(1)
+driver.click_button("cancel_button", :id, "cancel_button")
+sleep(1)
+driver.click_button("user_dropdown", :id, "user_dropdown")
+sleep(1)
+driver.click_button("add_network", :id, "add_network")
+sleep(1)
+driver.input("network", :id, "network", "192.168.3.0", false)
+driver.input("domain", :id, "domain", "test.com", false)
+driver.input("netmask", :id, "netmask", "255.255.255.0", false)
+driver.input("gateway", :id, "gateway", "192.168.0.9", false)
+driver.input("nameservers", :id, "nameservers", "192.182.33.3", false)
+sleep(1)
+driver.click_button("save_button", :id, "save_button")
+sleep(5)
 
 
 
