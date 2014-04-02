@@ -52,9 +52,9 @@ body
             td = v['mac']
             - if not defined? @limited_view
               td
-                button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                button#edithost_button.btn.btn-default.editHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
                   span.glyphicon.glyphicon-pencil
-                button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
+                button#deletehost_button.btn.btn-default.deleteHost data-toggle="modal" data-hostname="#{h}" data-ip="#{v['ip']}" data-mac="#{v['mac']}"
                   span.glyphicon.glyphicon-trash
   .modals
     .addNetworkModal#addNetworkModal.modal.fade role="dialog"
@@ -206,8 +206,8 @@ body
                   input#current_mac type="hidden" name="current_mac"
               .footer.modal-footer
                 .form-group
-                    a.btn.btn-default data-dismiss="modal" Cancel
-                    button.btn.btn-primary type="submit" Save
+                    a#edithost_cancel.btn.btn-default data-dismiss="modal" Cancel
+                    button#edithost_save.btn.btn-primary type="submit" Save
     .deleteHostModal#deleteHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
         .content.modal-content
