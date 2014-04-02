@@ -6,10 +6,10 @@ body
       .link.row
         .col-xs-12.col-sm-12
           abbr title="Delete Network"
-            button.btn.btn-default.deleteNetwork style="float: right;" data-toggle="modal" data-target="#deleteNetworkModal"
+            button#delete.btn.btn-default.deleteNetwork style="float: right;" data-toggle="modal" data-target="#deleteNetworkModal"
               span.glyphicon.glyphicon-trash
           abbr title="Edit Network"
-            button.btn.btn-default.editNetwork style="float: right;" data-toggle="modal" data-target="#editNetworkModal"
+            button#edit.btn.btn-default.editNetwork style="float: right;" data-toggle="modal" data-target="#editNetworkModal"
               span.glyphicon.glyphicon-pencil
 
     .domain.row
@@ -42,7 +42,7 @@ body
           - if not defined? @limited_view
             th
               abbr title="Add Host"
-                button.btn.btn-default.addHost style="float: right;" data-toggle="modal" data-target="#addHostModal"
+                button#addhost_button.btn.btn-default.addHost style="float: right;" data-toggle="modal" data-target="#addHostModal"
                   span.glyphicon.glyphicon-plus
       tbody
         - @network.hosts.each do |h,v|
@@ -118,8 +118,8 @@ body
                     input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}"
               .footer.modal-footer
                 .form-group
-                    a.btn.btn-default data-dismiss="modal" Cancel
-                    button.btn.btn-primary type="submit" Save
+                    a#cancel_editmodal.btn.btn-default data-dismiss="modal" Cancel
+                    button#save_editmodal.btn.btn-primary type="submit" Save
     .deleteNetworkModal#deleteNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog
         .content.modal-content
@@ -150,8 +150,8 @@ body
                     input#nameservers.form-control name="nameservers" type="text" value="#{@network.nameservers.join(",")}" readonly="true"
               .footer.modal-footer
                 .form-group
-                    a.btn.btn-default data-dismiss="modal" Cancel
-                    button.btn.btn-primary type="submit" Delete
+                    a#cancel_deletemodal.btn.btn-default data-dismiss="modal" Cancel
+                    button#delete_deletemodal.btn.btn-primary type="submit" Delete
 
     .addHostModal#addHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
@@ -178,8 +178,8 @@ body
                   input#networkAdd.form-control name="network" type="text" value="#{@network.network}" readonly="true"
               .footer.modal-footer
                 .form-group
-                    a.btn.btn-default data-dismiss="modal" Cancel
-                    button.btn.btn-primary type="submit" Save
+                    a#cancel_addhost.btn.btn-default data-dismiss="modal" Cancel
+                    button#save_addhost.btn.btn-primary type="submit" Save
     .editHostModal#editHostModal.modal.fade role="dialog"
       .dialog.modal-dialog
         .content.modal-content
