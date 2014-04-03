@@ -2,6 +2,7 @@ require 'rack/test'
 require 'capybara'
 require 'capybara/dsl'
 require 'email_spec'
+require 'factory_girl'
 
 Capybara.app = Sinatra::Application
 
