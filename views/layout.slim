@@ -32,7 +32,7 @@ html
               ul.dropdown-menu
                 - networks.each do |network|
                   li
-                    a href="/network/#{network}"
+                    a#network_variable href="/network/#{network}"
                       = network
           ul.nav.navbar-right.navbar-nav
             - if session[:identity].nil?
@@ -46,7 +46,7 @@ html
                     li
                       a#add_network.addNetwork data-toggle="modal" data-target="#addNetworkModal" Add Network
                     li
-                      a href="/logout" Logout
+                      a#dropdown_logout href="/logout" Logout
 
     .container
       = if @error then

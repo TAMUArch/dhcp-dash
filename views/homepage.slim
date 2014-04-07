@@ -6,7 +6,7 @@ body
       - networks.each do |network|
         .network.row
           .col-xs-3.col-sm-2
-            a href="/network/#{network}" #{network}
+            a#network_link href="/network/#{network}" #{network}
   .modals
     .addNetworkModal#addNetworkModal.modal.fade role="dialog"
       .dialog.modal-dialog
